@@ -8,8 +8,11 @@ def new_session(request):
 
 def index(request):
     token_data = exchange_token(request.GET)
-    user_data = get_user_data(token_data['access_token'])
-    save_user(user_data)
+    header = {
+        'Authorization': 'Bearer %s' % token_data['access_token'],
+    }
+    user = get_user_data(header)
+    get_valid_patients(user, header)
     return render(request, 'index.html')
 
 def exchange_token(params):
@@ -29,14 +32,11 @@ def exchange_token(params):
     return data
 
 
-def get_user_data(access_token):
-    header = {
-        'Authorization': 'Bearer %s' % access_token,
-    }
+def get_user_data(header):
     user_id = identify_user(header)
     endpoint = 'doctors/%s' % user_id
     user_data = get_data_from_api(endpoint, header)
-    return user_data
+    return save_user(user_data)
 
 def identify_user(header):
     endpoint = 'users/current'
@@ -57,3 +57,27 @@ def save_user(user_data):
                   last_name=user_data['last_name']
                  )
     user.save()
+    return user
+
+def get_valid_patients(doctor, header):
+    endpoint = 'patients?search=doctor:%s' % doctor.id
+    patients = get_data_from_api(endpoint, header)
+    for patient_data in patients['results']:
+        if is_valid_patient(patient_data):
+            save_patients(patient_data, doctor)
+
+def save_patients(patient_data, doctor):
+    patient = Patient(id=patient_data['id'],
+                      first_name=patient_data['first_name'],
+                      last_name=patient_data['last_name'],
+                      email=patient_data['email'],
+                      birthday=patient_data['date_of_birth'],
+                      doctor=doctor
+                     )
+    patient.save()
+
+def is_valid_patient(patient_data):
+    if patient_data['email'] and patient_data['date_of_birth']:
+        return True
+
+    return False
