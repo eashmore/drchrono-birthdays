@@ -1,13 +1,15 @@
 from django.shortcuts import render
 import requests
 
+from .models import Doctor, Patient
+
 def new_session(request):
     return render(request, 'new_session.html')
 
 def index(request):
     token_data = exchange_token(request.GET)
     user_data = get_user_data(token_data['access_token'])
-    # save_user(username, token_data)
+    save_user(user_data)
     return render(request, 'index.html')
 
 def exchange_token(params):
@@ -33,19 +35,25 @@ def get_user_data(access_token):
     }
     user_id = identify_user(header)
     endpoint = 'doctors/%s' % user_id
-    data = get_data_from_api(endpoint, header)
-    print data
+    user_data = get_data_from_api(endpoint, header)
+    return user_data
 
 def identify_user(header):
     endpoint = 'users/current'
-    data = get_data_from_api(endpoint, header)
-    return data['doctor']
+    current_user_data = get_data_from_api(endpoint, header)
+    return current_user_data['doctor']
 
 def get_data_from_api(endpoint, header):
-    response = requests.get('https://drchrono.com/api/%s' % endpoint, headers=header)
+    response = requests.get('https://drchrono.com/api/%s' % endpoint,
+                            headers=header
+                            )
     response.raise_for_status()
     data = response.json()
     return data
 
-def save_user(username, token_data):
-    print username
+def save_user(user_data):
+    user = Doctor(id=user_data['id'],
+                  first_name=user_data['first_name'],
+                  last_name=user_data['last_name']
+                 )
+    user.save()
