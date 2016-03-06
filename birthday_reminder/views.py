@@ -5,24 +5,25 @@ from django.contrib.auth.decorators import login_required
 
 import requests
 
-from .models import Patient
+from .models import Doctor, Patient
 
 def new_session(request):
     return render(request, 'new_session.html')
 
 @login_required(login_url='account/login')
-def index(request):
+def user_view(request):
     return render(request, 'user_view.html')
 
-def loading(request):
+def parse_api(request):
     token_data = exchange_token(request.GET)
     header = {
         'Authorization': 'Bearer %s' % token_data['access_token'],
     }
     doctor = get_doctor(header)
-    user = authenticate(username=doctor.username, password='')
-    login(request, user)
     get_valid_patients(doctor, header)
+
+    auth_user = authenticate(username=doctor.username, password='')
+    login(request, auth_user)
     return redirect('birthday_reminder:user_view')
 
 def exchange_token(params):
@@ -41,6 +42,13 @@ def exchange_token(params):
     data = response.json()
     return data
 
+def get_data_from_api(endpoint, header):
+    response = requests.get('https://drchrono.com/api/%s' % endpoint,
+                            headers=header
+                            )
+    response.raise_for_status()
+    data = response.json()
+    return data
 
 def get_doctor(header):
     current_doctor_data = identify_doctor(header)
@@ -54,32 +62,33 @@ def identify_doctor(header):
     current_doctor_data = get_data_from_api(endpoint, header)
     return current_doctor_data
 
-def get_data_from_api(endpoint, header):
-    response = requests.get('https://drchrono.com/api/%s' % endpoint,
-                            headers=header
-                            )
-    response.raise_for_status()
-    data = response.json()
-    return data
-
 def save_doctor(doctor_data, username):
-    doctor = User.objects.create_user(id=doctor_data['id'],
-                    first_name=doctor_data['first_name'],
+    user = User.objects.create_user(id=doctor_data['id'],
+                                    username=username,
+                                    password='',
+                                   )
+    doctor = Doctor(first_name=doctor_data['first_name'],
                     last_name=doctor_data['last_name'],
-                    username=username,
-                    password='',
+                    user=user,
                    )
+    user.save()
     doctor.save()
-    return doctor
+    return user
 
 def get_valid_patients(doctor, header):
     endpoint = 'patients?search=doctor:%s' % doctor.id
     patients = get_data_from_api(endpoint, header)
     for patient_data in patients['results']:
         if is_valid_patient(patient_data):
-            save_patients(patient_data, doctor)
+            save_patient(patient_data, doctor)
 
-def save_patients(patient_data, doctor):
+def is_valid_patient(patient_data):
+    if patient_data['email'] and patient_data['date_of_birth']:
+        return True
+
+    return False
+
+def save_patient(patient_data, doctor):
     patient = Patient(id=patient_data['id'],
                       first_name=patient_data['first_name'],
                       last_name=patient_data['last_name'],
@@ -88,9 +97,3 @@ def save_patients(patient_data, doctor):
                       doctor=doctor
                      )
     patient.save()
-
-def is_valid_patient(patient_data):
-    if patient_data['email'] and patient_data['date_of_birth']:
-        return True
-
-    return False
