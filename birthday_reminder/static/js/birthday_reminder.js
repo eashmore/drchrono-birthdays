@@ -32,12 +32,17 @@ function saveChanges(e) {
 }
 
 function updatePatient(patient) {
+  var checkbox = patient.querySelector('input');
+  var bool = false;
+  if (checkbox.checked) {
+    bool = true;
+  }
+
   var csrftoken = getCookie('csrftoken');
   $.ajax({
-    url: 'api/patient/' + patient.getAttribute('id'),
+    url: 'api/patient/' + patient.getAttribute('id') + '/',
     type: 'PUT',
-    data: {'email_bool': true},
-    data_type: 'json',
+    data: {'email_bool': bool},
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
     }

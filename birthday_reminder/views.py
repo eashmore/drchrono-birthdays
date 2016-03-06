@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
+from django.http import QueryDict
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -120,6 +121,18 @@ def api_patients_index(request):
     data = serializers.serialize("json", patients)
     return HttpResponse(data, content_type='application/json')
 
-def api_patient(request):
-    fail
-    return request
+def api_patient(request, patient_id):
+    patient = Patient.objects.get(pk=patient_id)
+    if request.method == 'PUT':
+        data = QueryDict(request.body)
+        for key in data:
+            value = data[key]
+            if value == 'false':
+                value = False
+
+            setattr(patient, key, value)
+
+        patient.save()
+
+    patientJSON = serializers.serialize("json", [patient])
+    return HttpResponse(patientJSON, content_type='application/json')
