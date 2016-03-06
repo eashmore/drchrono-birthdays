@@ -1,19 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views import generic
+from django.core.urlresolvers import reverse
+
 import requests
 
 from .models import Doctor, Patient
 
+class UserView(generic.DetailView):
+    model = Doctor
+    template_name = 'user_view.html'
+
 def new_session(request):
     return render(request, 'new_session.html')
 
-def index(request):
+def loading(request):
     token_data = exchange_token(request.GET)
     header = {
         'Authorization': 'Bearer %s' % token_data['access_token'],
     }
     user = get_user_data(header)
     get_valid_patients(user, header)
-    return render(request, 'index.html')
+    return redirect(reverse('birthday_reminder:user_view', args=[user.id]))
 
 def exchange_token(params):
     if 'error' in params:
@@ -22,7 +29,7 @@ def exchange_token(params):
     content = {
         'code': params['code'],
         'grant_type': 'authorization_code',
-        'redirect_uri': 'http://localhost:8000/reminders',
+        'redirect_uri': 'http://localhost:8000/loading',
         'client_id': 'g9fTx7H3gXlnZOA2SeoPmE4NV1MIh5yU4lOoxmX4',
         'client_secret': 'Kf82PCpQCpvYEkMcoWI5HH5TDaV09cVcG4IBiW7xCgZqvrm6HyEqld6P4DjU6IG3xRQn0weD1MmODkOQpLXEjiMrJ19XC9IiogwVczQWZVhWRzgEFbPf4VqqtALtNsCc',
     }

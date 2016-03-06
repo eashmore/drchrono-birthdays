@@ -5,5 +5,6 @@ from . import views
 app_name = 'birthday_reminder'
 urlpatterns = [
     url(r'^$', views.new_session, name='new_session'),
-    url(r'^reminders', views.index, name='index'),
+    url(r'^loading', views.loading, name='loading'),
+    url(r'^reminders/(?P<pk>[0-9]+)/$', views.UserView.as_view(), name='user_view'),
 ]
