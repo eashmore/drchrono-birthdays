@@ -20,7 +20,7 @@ def parse_api(request):
         'Authorization': 'Bearer %s' % token_data['access_token'],
     }
     doctor = get_doctor(header)
-    get_valid_patients(doctor, header)
+    patients = get_valid_patients(doctor, header)
 
     auth_user = authenticate(username=doctor.username, password='')
     login(request, auth_user)
@@ -38,14 +38,6 @@ def exchange_token(params):
         'client_secret': 'Kf82PCpQCpvYEkMcoWI5HH5TDaV09cVcG4IBiW7xCgZqvrm6HyEqld6P4DjU6IG3xRQn0weD1MmODkOQpLXEjiMrJ19XC9IiogwVczQWZVhWRzgEFbPf4VqqtALtNsCc',
     }
     response = requests.post('https://drchrono.com/o/token/', content)
-    response.raise_for_status()
-    data = response.json()
-    return data
-
-def get_data_from_api(endpoint, header):
-    response = requests.get('https://drchrono.com/api/%s' % endpoint,
-                            headers=header
-                            )
     response.raise_for_status()
     data = response.json()
     return data
@@ -75,12 +67,27 @@ def save_doctor(doctor_data, username):
     doctor.save()
     return user
 
+def get_data_from_api(endpoint, header):
+    response = requests.get('https://drchrono.com/api/%s' % endpoint,
+                            headers=header
+                            )
+    response.raise_for_status()
+    data = response.json()
+    return data
+
 def get_valid_patients(doctor, header):
-    endpoint = 'patients?search=doctor:%s' % doctor.id
-    patients = get_data_from_api(endpoint, header)
-    for patient_data in patients['results']:
-        if is_valid_patient(patient_data):
-            save_patient(patient_data, doctor)
+    patients_url = 'https://drchrono.com/api/patients'
+    patients = []
+    while patients_url:
+        response = requests.get(patients_url, headers=header)
+        data = response.json()
+        for patient_data in data['results']:
+            if is_valid_patient(patient_data):
+                patient = save_patient(patient_data, doctor)
+                patients.append(patient)
+
+        patients_url = data['next']
+    return patients
 
 def is_valid_patient(patient_data):
     if patient_data['email'] and patient_data['date_of_birth']:
@@ -97,3 +104,4 @@ def save_patient(patient_data, doctor):
                       doctor=doctor
                      )
     patient.save()
+    return patient
