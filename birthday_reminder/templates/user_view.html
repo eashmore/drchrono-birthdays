@@ -1,1 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
 <h1>Hi {{user.doctor.first_name}}</h1>
+<button id="email-all" type="button" name="button">
+  Send email on all patient's birthdays
+</button>
+
+{% endblock %}

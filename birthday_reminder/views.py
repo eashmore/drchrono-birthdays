@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
+
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 import requests
+from django.core import serializers
 
 from .models import Doctor, Patient
 
@@ -20,7 +23,7 @@ def parse_api(request):
         'Authorization': 'Bearer %s' % token_data['access_token'],
     }
     doctor = get_doctor(header)
-    patients = get_valid_patients(doctor, header)
+    update_patients(doctor, header)
 
     auth_user = authenticate(username=doctor.username, password='')
     login(request, auth_user)
@@ -75,7 +78,7 @@ def get_data_from_api(endpoint, header):
     data = response.json()
     return data
 
-def get_valid_patients(doctor, header):
+def update_patients(doctor, header):
     patients_url = 'https://drchrono.com/api/patients'
     patients = []
     while patients_url:
@@ -105,3 +108,10 @@ def save_patient(patient_data, doctor):
                      )
     patient.save()
     return patient
+
+# api
+def api_patients(request):
+    user = User.objects.get(id=request.GET['doctor_id'])
+    patients = user.doctor.patient_set.all()
+    data = serializers.serialize("json", patients)
+    return HttpResponse(data, content_type='application/json')
