@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views import generic
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 
 import requests
 from django.core import serializers
@@ -13,9 +13,16 @@ from .models import Doctor, Patient
 def new_session(request):
     return render(request, 'new_session.html')
 
-@login_required(login_url='account/login')
-def user_view(request):
-    return render(request, 'user_view.html')
+class PatientIndexView(generic.ListView):
+    template_name = 'index.html'
+    context_object_name = 'patients'
+
+    def get_queryset(self):
+        patients = Patient.objects.filter(doctor=self.request.user.doctor)
+        return patients.order_by('last_name')
+
+    def context(self):
+        return {'user': self.request.user}
 
 def parse_api(request):
     token_data = exchange_token(request.GET)
@@ -27,7 +34,7 @@ def parse_api(request):
 
     auth_user = authenticate(username=doctor.username, password='')
     login(request, auth_user)
-    return redirect('birthday_reminder:user_view')
+    return redirect('birthday_reminder:patient_index')
 
 def exchange_token(params):
     if 'error' in params:
@@ -78,19 +85,16 @@ def get_data_from_api(endpoint, header):
     data = response.json()
     return data
 
-def update_patients(doctor, header):
+def update_patients(user, header):
     patients_url = 'https://drchrono.com/api/patients'
-    patients = []
     while patients_url:
         response = requests.get(patients_url, headers=header)
         data = response.json()
         for patient_data in data['results']:
             if is_valid_patient(patient_data):
-                patient = save_patient(patient_data, doctor)
-                patients.append(patient)
+                patient = save_patient(patient_data, user)
 
         patients_url = data['next']
-    return patients
 
 def is_valid_patient(patient_data):
     if patient_data['email'] and patient_data['date_of_birth']:
@@ -98,20 +102,24 @@ def is_valid_patient(patient_data):
 
     return False
 
-def save_patient(patient_data, doctor):
+def save_patient(patient_data, user):
     patient = Patient(id=patient_data['id'],
                       first_name=patient_data['first_name'],
                       last_name=patient_data['last_name'],
                       email=patient_data['email'],
                       birthday=patient_data['date_of_birth'],
-                      doctor=doctor
+                      doctor=user.doctor
                      )
     patient.save()
     return patient
 
 # api
-def api_patients(request):
+def api_patients_index(request):
     user = User.objects.get(id=request.GET['doctor_id'])
     patients = user.doctor.patient_set.all()
     data = serializers.serialize("json", patients)
     return HttpResponse(data, content_type='application/json')
+
+def api_patient(request):
+    fail
+    return request

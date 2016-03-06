@@ -1,0 +1,57 @@
+#main {
+  margin-top: 2%;
+  margin-left: 12%;
+  height: 85vh;
+  width: 85vw;
+}
+
+#patient-list {
+  width: 86%;
+  font-size: 18px;
+  overflow-y: scroll;
+  height: 80%;
+}
+
+#patient-table-head {
+  font-weight: 600;
+  width: 85%;
+}
+
+.patient-first-name {
+  display:inline-block;
+  width: 18%;
+  word-wrap: break-word;
+}
+
+.patient-last-name {
+  display:inline-block;
+  width: 18%;
+  word-wrap: break-word;
+}
+
+.patient-email {
+  display:inline-block;
+  width: 30%;
+  word-wrap: break-word;
+}
+
+.patient-birthday {
+  display:inline-block;
+  width: 20%;
+  word-wrap: break-word;
+}
+
+.patient-send-check {
+  display:inline-block;
+  width: 10%;
+}
+
+.patient-send-check>input {
+  position: relative;
+  left: 30%;
+  bottom: 2px;
+}
+
+.changed {
+  background-color: #ADD8E6;
+}

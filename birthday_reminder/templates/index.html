@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Hi {{user.doctor.first_name}}</h1>
+<button id="email-all-button" type="button" name="button">
+  Send birthday emails to all patients
+</button>
+
+<button id="email-custom-button" type="button" name="button">
+  Customize email message
+</button>
+
+<div id="patient-table-head">
+  <div class="patient-first-name">First Name</div>
+  <div class="patient-last-name">Last Name</div>
+  <div class="patient-email">Email</div>
+  <div class="patient-birthday">Birthday</div>
+  <div class="patient-send-check">Send Email?</div>
+</div>
+<div id="patient-list">
+  {% for patient in patients %}
+  <div id="{{patient.id}}" class="patient">
+    <div class="patient-first-name">{{ patient.first_name }}</div>
+    <div class="patient-last-name">{{ patient.last_name }}</div>
+    <div class="patient-email">{{ patient.email }}</div>
+    <div class="patient-birthday">{{ patient.birthday }}</div>
+    <div class="patient-send-check">
+      {% if patient.send_email %}
+        <input type="checkbox" name="name" value="" checked>
+      {% else %}
+        <input type="checkbox" name="name" value="">
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<button id="save-send-changes" type="button" name="button" disabled>Save Changes</button>
+{% endblock %}
