@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.views import generic
 from django.http import QueryDict
 from django.core import serializers
-from django.forms.models import modelform_factory
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
@@ -147,11 +146,7 @@ def save_patient(patient_data, user):
 def api_doctor(request, doctor_id):
     doctor = User.objects.get(id=doctor_id).doctor
     if request.method == 'PUT':
-        data = QueryDict(request.body)
-        for key in data:
-            setattr(doctor, key, data[key])
-
-        doctor.save()
+        handlePut(doctor, request.body)
 
     doctorJSON = serializers.serialize("json", [doctor])
     return HttpResponse(doctorJSON, content_type='application/json')
@@ -165,15 +160,18 @@ def api_patients_index(request):
 def api_patient(request, patient_id):
     patient = Patient.objects.get(pk=patient_id)
     if request.method == 'PUT':
-        data = QueryDict(request.body)
-        for key in data:
-            value = data[key]
-            if value == 'false':
-                value = False
-
-            setattr(patient, key, value)
-
-        patient.save()
+        handlePut(patient, request.body)
 
     patientJSON = serializers.serialize("json", [patient])
     return HttpResponse(patientJSON, content_type='application/json')
+
+def handlePut(model, body):
+    data = QueryDict(body)
+    for key in data:
+        value = data[key]
+        if value == 'false':
+            value = False
+
+        setattr(model, key, value)
+
+    model.save()

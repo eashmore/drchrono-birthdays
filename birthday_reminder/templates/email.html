@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Customize your email message</h1>
+<h1><i class="fa fa-pencil-square-o"></i> Customize your email message</h1>
 <form action="" method="" data-user="{{ user.id }}">
   <label>Email subject line:<br>
     <input id="email-subject-input" type="text" name="email_subject" value="{{ email_subject }}">
@@ -20,7 +20,9 @@
   </label>
   <br>
 
-  <button id="email-submit" type="submit">Save Changes</button>
+  <button id="email-submit" type="submit">
+    <i class="fa fa-check-square-o"></i> Save Changes
+  </button>
 </form>
 
 {% endblock %}

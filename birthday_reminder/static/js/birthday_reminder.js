@@ -2,8 +2,8 @@ function checkForEmailUpdate() {
   var $patientList = $('#patient-list');
   $patientList.on('change', 'input', prepareForSave);
 
-  var $allUserButton = $('#email-all-button');
-  $allUserButton.on('click', updateAllPatients);
+  var $allPatientsButton = $('#email-all-button');
+  $allPatientsButton.on('click', updateAllPatients);
 }
 
 function updateAllPatients(e) {
@@ -81,6 +81,7 @@ function saveEmail(e) {
   var $form = $(e.currentTarget.parentElement);
   var data = $form.serialize();
   var user_id = $form.data('user');
+
   var csrftoken = getCookie('csrftoken');
   $.ajax({
     url: '/api/doctor/' + user_id +'/',

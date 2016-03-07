@@ -44,22 +44,14 @@ button:hover {
   width: 85%;
   margin: auto;
   font-family: Helvetica;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding: 20px 40px;
   border-radius: 3px;
   box-shadow: 0px 0px 5px #4FA025;
 }
 
 #drchrono-logo {
   width: 100%;
-  max-width: 750px;
-}
-
-#bday-reminder-logo {
-  float: right;
-  font-size: 58px;
-  color: #4A4A4A;
-  margin-top: -30px;
+  max-width: 900px;
 }
 
 #about-app {}
@@ -157,7 +149,7 @@ button:hover {
 }
 
 #save-send-changes[disabled], #email-submit[disabled] {
-  cursor: not-allowed;
+  cursor: default;
   color: #D3D3D3;
   background-color: #808080;
   opacity: 0.2;
@@ -200,16 +192,14 @@ button:hover {
   width: 75%;
   max-width: 700px;
   font-size: 15px;
+  border: 0px;
+  box-shadow: 0 1px 1px #ccc;
+  padding: 10px;
 }
 
 #email-subject-input {
-  padding: 5px;
   margin-bottom: 25px;
   margin-top: 10px;
-}
-
-#email-body-input {
-  height: 75%;
 }
 
 /*navbar*/
@@ -255,7 +245,7 @@ button:hover {
 }
 
 .nav-class-text {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .drchrono-nav-text {
@@ -271,5 +261,9 @@ button:hover {
 
   #nav-patients, #sign-out {
     width: 125px;
+  }
+
+  #email-body-input, #email-subject-input {
+    width: 100%;
   }
 }
