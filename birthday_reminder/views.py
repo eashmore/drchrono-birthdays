@@ -11,16 +11,26 @@ import requests
 
 from .models import Doctor, Patient
 
-class RootView(generic.ListView):
-    template_name = 'index.html'
-    context_object_name = 'patients'
+# class RootView(generic.ListView):
+#     template_name = 'index.html'
+#     context_object_name = 'patients'
+#
+#     def get_queryset(self):
+#         patients = Patient.objects.filter(doctor=self.request.user.doctor)
+#         return patients.order_by('last_name')
+#
+#     def context(self):
+#         return {'user': self.request.user}
 
-    def get_queryset(self):
-        patients = Patient.objects.filter(doctor=self.request.user.doctor)
-        return patients.order_by('last_name')
+def root_view(request):
+    doctor = request.user.doctor
+    patients = Patient.objects.filter(doctor=doctor).order_by('last_name')
+    context = {
+        'doctor': doctor,
+        'patients': patients
+    }
 
-    def context(self):
-        return {'user': self.request.user}
+    return render(request, 'index.html', context)
 
 def new_session_view(request):
     return render(request, 'new_session.html')
