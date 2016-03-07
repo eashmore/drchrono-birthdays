@@ -70,6 +70,31 @@ function buildPutRequest(patient) {
   });
 }
 
+function checkForEmailSave() {
+  var $button = $('#email-submit');
+  $button.on('click', saveEmail);
+}
+
+function saveEmail(e) {
+  e.preventDefault();
+  e.currentTarget.disabled = true;
+  var $form = $(e.currentTarget.parentElement);
+  var data = $form.serialize();
+  var user_id = $form.data('user');
+  var csrftoken = getCookie('csrftoken');
+  $.ajax({
+    url: '/api/doctor/' + user_id +'/',
+    type: 'PUT',
+    data: data,
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    },
+    success: function() {
+      window.location.reload();
+    }
+  });
+}
+
 //From Django docs https://docs.djangoproject.com/en/1.9/ref/csrf/
 function getCookie(name) {
     var cookieValue = null;
@@ -90,4 +115,5 @@ function getCookie(name) {
 
 (function() {
   checkForEmailUpdate();
+  checkForEmailSave();
 })();

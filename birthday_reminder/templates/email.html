@@ -2,10 +2,7 @@
 {% block content %}
 
 <h1>Customize your email message</h1>
-<form class="" action="{% url 'birthday_reminder:doctor' user.id %}" method="POST">
-  <input type="hidden" name="_method" value="PUT">
-  {% csrf_token %}
-
+<form action="" method="" data-user="{{ user.id }}">
   <label>Email subject line:<br>
     <input id="email-subject-input" type="text" name="email_subject" value="{{ email_subject }}">
   </label>
@@ -23,7 +20,7 @@
   </label>
   <br>
 
-  <input id="email-submit" type="submit" value="Save Changes"/>
+  <button id="email-submit" type="submit">Save Changes</button>
 </form>
 
 {% endblock %}

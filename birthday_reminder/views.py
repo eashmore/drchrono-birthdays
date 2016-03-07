@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.http import QueryDict
 from django.core import serializers
+from django.forms.models import modelform_factory
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
@@ -145,15 +146,15 @@ def save_patient(patient_data, user):
 # api
 def api_doctor(request, doctor_id):
     doctor = User.objects.get(id=doctor_id).doctor
-    if request.method == 'POST':
+    if request.method == 'PUT':
         data = QueryDict(request.body)
-        if (data['_method'] == 'PUT'):
-            for key in data:
-                if key != '_method' and key != 'csrfmiddlewaretoken':
-                    setattr(doctor, key, data[key])
+        for key in data:
+            setattr(doctor, key, data[key])
 
-            doctor.save()
-    return redirect('birthday_reminder:custom_email')
+        doctor.save()
+
+    doctorJSON = serializers.serialize("json", [doctor])
+    return HttpResponse(doctorJSON, content_type='application/json')
 
 def api_patients_index(request):
     user = User.objects.get(id=request.GET['doctor_id'])

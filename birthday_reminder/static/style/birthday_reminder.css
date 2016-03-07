@@ -110,6 +110,7 @@ button:hover {
   display:inline-block;
   width: 18%;
   word-wrap: break-word;
+  padding-left: 10px;
 }
 
 .patient-last-name {
@@ -155,7 +156,7 @@ button:hover {
   background-color: #0769AD;
 }
 
-#save-send-changes[disabled] {
+#save-send-changes[disabled], #email-submit[disabled] {
   cursor: not-allowed;
   color: #D3D3D3;
   background-color: #808080;
