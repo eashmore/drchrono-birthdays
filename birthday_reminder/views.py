@@ -11,23 +11,33 @@ import requests
 
 from .models import Doctor, Patient
 
-class PatientIndexView(generic.ListView):
-    template_name = 'index.html'
-    context_object_name = 'patients'
+# class RootView(generic.ListView):
+#     template_name = 'index.html'
+#     context_object_name = 'patients'
+#
+#     def get_queryset(self):
+#         patients = Patient.objects.filter(doctor=self.request.user.doctor)
+#         return patients.order_by('last_name')
+#
+#     def context(self):
+#         return {'user': self.request.user}
 
-    def get_queryset(self):
-        patients = Patient.objects.filter(doctor=self.request.user.doctor)
-        return patients.order_by('last_name')
+def root_view(request):
+    doctor = request.user.doctor
+    patients = Patient.objects.filter(doctor=doctor).order_by('last_name')
+    context = {
+        'doctor': doctor,
+        'patients': patients
+    }
 
-    def context(self):
-        return {'user': self.request.user}
+    return render(request, 'index.html', context)
 
 def new_session_view(request):
     return render(request, 'new_session.html')
 
 def logout_view(request):
     logout(request)
-    return redirect('birthday_reminder:patient_index')
+    return redirect('birthday_reminder:root_view')
 
 def email_view(request):
     user = request.user
@@ -41,7 +51,7 @@ def email_view(request):
     return render(request, 'email.html', context)
 
 # parse drchrono api
-def parse_api(request):
+def parse_drchrono_api(request):
     token_data = exchange_token(request.GET)
     header = {
         'Authorization': 'Bearer %s' % token_data['access_token'],
@@ -51,7 +61,7 @@ def parse_api(request):
 
     auth_user = authenticate(username=doctor.username, password='')
     login(request, auth_user)
-    return redirect('birthday_reminder:patient_index')
+    return redirect('birthday_reminder:root_view')
 
 def exchange_token(params):
     if 'error' in params:
@@ -135,37 +145,33 @@ def save_patient(patient_data, user):
         birthday=patient_data['date_of_birth'],
         doctor=user.doctor
     )
-
     if Patient.objects.filter(pk=patient_data['id']).exists():
         patient.save(update_fields=['first_name', 'last_name', 'email'])
     else:
         patient.save()
+
     return patient
 
-# api
-def api_doctor(request, doctor_id):
-    doctor = User.objects.get(id=doctor_id).doctor
-    if request.method == 'PUT':
-        handlePut(doctor, request.body)
+# my api
+class DoctorView(generic.DetailView):
+    model = Doctor
 
-    doctorJSON = serializers.serialize("json", [doctor])
-    return HttpResponse(doctorJSON, content_type='application/json')
+    def put(self, request, **kwargs):
+        doctor = User.objects.get(pk=kwargs['pk']).doctor
+        updateInstance(doctor, request.body)
+        doctorJSON = serializers.serialize("json", [doctor])
+        return HttpResponse(doctorJSON, content_type='application/json')
 
-def api_patients_index(request):
-    user = User.objects.get(id=request.GET['doctor_id'])
-    patients = user.doctor.patient_set.all()
-    data = serializers.serialize("json", patients)
-    return HttpResponse(data, content_type='application/json')
+class PatientView(generic.DetailView):
+    model = Patient
 
-def api_patient(request, patient_id):
-    patient = Patient.objects.get(pk=patient_id)
-    if request.method == 'PUT':
-        handlePut(patient, request.body)
+    def put(self, request, **kwargs):
+        patient = Patient.objects.get(pk=kwargs['pk'])
+        updateInstance(patient, request.body)
+        patientJSON = serializers.serialize("json", [patient])
+        return HttpResponse(patientJSON, content_type='application/json')
 
-    patientJSON = serializers.serialize("json", [patient])
-    return HttpResponse(patientJSON, content_type='application/json')
-
-def handlePut(model, body):
+def updateInstance(model, body):
     data = QueryDict(body)
     for key in data:
         value = data[key]
