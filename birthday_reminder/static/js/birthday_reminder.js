@@ -77,7 +77,8 @@ function checkForEmailSave() {
 
 function saveEmail(e) {
   e.preventDefault();
-  e.currentTarget.disabled = true;
+  var button = e.currentTarget;
+  button.disabled = true;
   var $form = $(e.currentTarget.parentElement);
   var data = $form.serialize();
   var user_id = $form.data('user');
@@ -91,7 +92,12 @@ function saveEmail(e) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
     },
     success: function() {
-      window.location.reload();
+      button.disabled = false;
+      var saveSuccess = $('#save-success');
+      saveSuccess.removeClass('display-none');
+      setTimeout(function() {
+        saveSuccess.addClass('display-none');
+      }, 1500);
     }
   });
 }

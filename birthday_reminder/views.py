@@ -75,10 +75,12 @@ def parse_drchrono_api(request):
     header = {
         'Authorization': 'Bearer %s' % token_data['access_token'],
     }
-    doctor = get_doctor(header)
-    update_patients(doctor, header)
+    user = get_user(header)
+    update_patients(user, header)
 
-    auth_user = authenticate(username=doctor.username, password='')
+    user.set_password(token_data['access_token'])
+    user.save()
+    auth_user = authenticate(username=user.username, password=token_data['access_token'])
     login(request, auth_user)
     return redirect('birthday_reminder:root_view')
 
@@ -98,12 +100,12 @@ def exchange_token(params):
     data = response.json()
     return data
 
-def get_doctor(header):
+def get_user(header):
     current_doctor_data = identify_doctor(header)
     endpoint = 'doctors/{0}'.format(current_doctor_data['doctor'])
     doctor_data = get_data_from_api(endpoint, header)
-    doctor = save_doctor(doctor_data, current_doctor_data['username'])
-    return doctor
+    user = save_doctor(doctor_data, current_doctor_data['username'])
+    return user
 
 def identify_doctor(header):
     endpoint = 'users/current'
@@ -121,7 +123,6 @@ def save_doctor(doctor_data, username):
         last_name=doctor_data['last_name'],
         user=user,
     )
-    user.save()
     if Doctor.objects.filter(pk=user).exists():
         doctor.save(update_fields=['first_name', 'last_name'])
     else:

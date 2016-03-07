@@ -183,6 +183,18 @@ button:hover {
   border-radius: 5px;
 }
 
+#save-success {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 43px;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  padding: 5px 0px;
+  font-size: 20px;
+}
+
 /*email*/
 #email-description {
   font-size: 12px;
