@@ -1,6 +1,15 @@
 function checkForEmailUpdate() {
   var $patientList = $('#patient-list');
   $patientList.on('change', 'input', prepareForSave);
+
+  var $allUserButton = $('#email-all-button');
+  $allUserButton.on('click', updateAllPatients);
+}
+
+function updateAllPatients(e) {
+  e.preventDefault();
+  var patients = $('.patient');
+  saveChanges(patients);
 }
 
 function prepareForSave(e) {
@@ -11,28 +20,31 @@ function prepareForSave(e) {
   } else {
     patientNode.classList.add('changed');
   }
-  activeSaveButton();
+  activateSaveButton();
 }
 
-function activeSaveButton() {
+function activateSaveButton() {
   var $button = $('#save-send-changes');
   if ($button.attr('disabled')) {
     $button.removeAttr('disabled');
     $button.addClass('enabled-button');
-    $button.on('click', saveChanges);
+    $button.on('click', getChanges);
   }
 }
 
-function saveChanges(e) {
+function getChanges(e) {
   e.preventDefault();
   var button = e.currentTarget;
   button.textContent = 'Saving changes...';
   button.disabled = true;
-
-  var requests = [];
   var $changedPatients = $('#patient-list').find('.changed');
-  for (var i = 0; i < $changedPatients.length; i++) {
-    requests.push(buildPutRequest($changedPatients[i]));
+  saveChanges($changedPatients);
+}
+
+function saveChanges($patientsList) {
+  var requests = [];
+  for (var i = 0; i < $patientsList.length; i++) {
+    requests.push(buildPutRequest($patientsList[i]));
   }
 
   $.when.apply($, requests).done(function() {
@@ -42,9 +54,9 @@ function saveChanges(e) {
 
 function buildPutRequest(patient) {
   var checkbox = patient.querySelector('input');
-  var bool = false;
-  if (checkbox.checked) {
-    bool = true;
+  var bool = true;
+  if (patient.classList.contains('changed') && !checkbox.checked) {
+    bool = false;
   }
   var csrftoken = getCookie('csrftoken');
   return $.ajax({
@@ -65,7 +77,9 @@ function getCookie(name) {
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);
             if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                cookieValue = decodeURIComponent(
+                                cookie.substring(name.length + 1)
+                              );
                 break;
             }
         }

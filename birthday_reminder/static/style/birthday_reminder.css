@@ -9,7 +9,7 @@
   width: 86%;
   font-size: 18px;
   overflow-y: scroll;
-  height: 80%;
+  max-height: 80%;
 }
 
 #patient-table-head {
