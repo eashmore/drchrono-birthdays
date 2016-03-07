@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load staticfiles %}
 
-<h1>Home</h1>
+<div id="logo" class="clearfix">
+  <img id="drchrono-logo" src="{% static 'images/drchrono-lg.png' %}" alt="" />
+  <div id="bday-reminder-logo">Birthday Reminders</div>
+</div>
 
-<a href="https://drchrono.com/o/authorize/?redirect_uri=http%3A//localhost%3A8000/loading&response_type=code&client_id=g9fTx7H3gXlnZOA2SeoPmE4NV1MIh5yU4lOoxmX4&scope=patients:read%20user:read">
-  Login
-</a>
+<div id="about-app">
+  <p>
+    
+  </p>
+</div>
+
+<div id="login-button">
+  <a href="https://drchrono.com/o/authorize/?redirect_uri=http%3A//localhost%3A8000/loading&response_type=code&client_id=g9fTx7H3gXlnZOA2SeoPmE4NV1MIh5yU4lOoxmX4&scope=patients:read%20user:read">
+    <button type="button" name="button">
+      Login through drchrono
+    </button>
+  </a>
+</div>
 
 {% endblock %}

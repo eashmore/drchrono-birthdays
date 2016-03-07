@@ -13,15 +13,26 @@
     {% if request.user.username %}
     <div id="nav">
       <div id="nav-patients"><a href="{% url 'birthday_reminder:patient_index' %}">
-        <i class="fa fa-list"></i> Patients List
+        <div class="nav-class-text">
+          <i class="fa fa-list fa-lg"></i> Patients List
+        </div>
       </a></div>
       <div id="nav-email"><a href="{% url 'birthday_reminder:custom_email' %}">
-        <i class="fa fa-envelope-o"></i> Customize Email Message
+        <div class="nav-class-text">
+          <i class="fa fa-envelope-o fa-lg"></i> Customize Email Message
+        </div>
       </a></div>
       <div id="sign-out"><a href="{% url 'birthday_reminder:logout' %}">
-        <i class="fa fa-sign-out"></i> Log Out
+        <div class="nav-class-text">
+          <i class="fa fa-sign-out fa-lg"></i> Log Out
+        </div>
       </a></div>
-      <div id="to-drchrono"><a href="https://drchrono.com/dashboard/">To drchrono</a></div>
+      <div id="to-drchrono"><a href="https://drchrono.com/dashboard/">
+        <div class="nav-class-text">
+          <img src="{% static 'images/drchrono-sm.png' %}" alt="" />
+          <span class="drchrono-nav-text">To drchrono</span>
+        </div>
+      </a></div>
     </div>
     {% endif %}
     <div id="main">

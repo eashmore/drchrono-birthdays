@@ -3,8 +3,13 @@ body {
   font-family: sans-serif;
 }
 
+/*general css*/
 .bold {
   font-weight: 600;
+}
+
+.clearfix {
+  overflow: auto;
 }
 
 button, #email-submit {
@@ -22,23 +27,48 @@ button:hover {
 }
 
 #main {
+  margin: auto;
   margin-top: 75px;
-  margin-left: 10%;
   height: 85vh;
   width: 85vw;
 }
 
+/*login page*/
+#logo {
+  max-width: 800px;
+  width: 85%;
+  margin: auto;
+  font-style: Helvetica;
+}
+
+#drchrono-logo {
+  width: 100%;
+  max-width: 750px;
+}
+
+#bday-reminder-logo {
+  float: right;
+  font-size: 58px;
+  color: #4A4A4A;
+  margin-top: -30px;
+}
+
 #patient-table, #patient-table-label {
   background-color: #fff;
-  width: 93%;
   padding-top: 5px;
   border-radius: 3px;
 }
 
+#about-app {}
+
+#login-button {
+  margin: auto;
+}
+
+/*patients index*/
 #patient-table-label {
   display: block;
   font-size: 20px;
-  width: 92.5%;
   margin-bottom: 5px;
   background-color: #696f7d;
   color: white;
@@ -170,9 +200,30 @@ button:hover {
 
 #nav a {
   display: block;
-  margin-top: 10px;
+  position: relative;
   font-size: 15px;
   text-decoration: none;
   color: #fff;
-  height: 30px;
+  height: 40px;
+  top: 0;
+}
+
+.nav-class-text {
+  margin-top: 10px;
+}
+
+.drchrono-nav-text {
+  position: relative;
+  top: -5px;
+}
+
+/*responsive*/
+@media (max-width: 920px) {
+  #to-drchrono {
+    display: none;
+  }
+
+  #nav-patients, #sign-out {
+    width: 125px;
+  }
 }
