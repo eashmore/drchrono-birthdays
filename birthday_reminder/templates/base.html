@@ -5,15 +5,22 @@
     <title>drchrono Birthday Reminder</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'style/birthday_reminder.css' %}" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   </head>
   <body>
     {% if request.user.username %}
     <div id="nav">
-      <div id="nav-patients"><a href="/">Patients List</a></div>
-      <div id="nav-email"><a href="/email">Customize Email Message</a></div>
-      <div id="sign-out"><a href="/accounts/logout">Log Out</a></div>
+      <div id="nav-patients"><a href="{% url 'birthday_reminder:patient_index' %}">
+        <i class="fa fa-list"></i> Patients List
+      </a></div>
+      <div id="nav-email"><a href="{% url 'birthday_reminder:custom_email' %}">
+        <i class="fa fa-envelope-o"></i> Customize Email Message
+      </a></div>
+      <div id="sign-out"><a href="{% url 'birthday_reminder:logout' %}">
+        <i class="fa fa-sign-out"></i> Log Out
+      </a></div>
       <div id="to-drchrono"><a href="https://drchrono.com/dashboard/">To drchrono</a></div>
     </div>
     {% endif %}

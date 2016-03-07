@@ -1,34 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Hi {{user.doctor.first_name}}</h1>
+
+<h1>Welcome {{user.doctor.first_name}}</h1>
 <button id="email-all-button" type="button" name="button">
-  Set up birthday emails for all patients
+  <i class="fa fa-paper-plane"></i> Set up birthday emails for all patients
 </button>
 
-<div id="patient-table-head">
-  <div class="patient-first-name">First Name</div>
-  <div class="patient-last-name">Last Name</div>
-  <div class="patient-email">Email</div>
-  <div class="patient-birthday">Birthday</div>
-  <div class="patient-send-check">Send Email?</div>
-</div>
-<div id="patient-list">
-  {% for patient in patients %}
-  <div id="{{patient.id}}" class="patient">
-    <div class="patient-first-name">{{ patient.first_name }}</div>
-    <div class="patient-last-name">{{ patient.last_name }}</div>
-    <div class="patient-email">{{ patient.email }}</div>
-    <div class="patient-birthday">{{ patient.birthday }}</div>
-    <div class="patient-send-check">
-      {% if patient.email_bool == True %}
-        <input type="checkbox" name="name" value="" checked>
-      {% else %}
-        <input type="checkbox" name="name" value="">
-      {% endif %}
-    </div>
+<br>
+<label id="patient-table-label" class="bold" for="patient-table">
+  <i class="fa fa-users"></i> PATIENTS
+</label>
+<div id="patient-table">
+  <div id="patient-table-head" class="bold">
+    <div class="patient-first-name">First Name</div>
+    <div class="patient-last-name">Last Name</div>
+    <div class="patient-email">Email</div>
+    <div class="patient-birthday">Birthday</div>
+    <div class="patient-send-check">Send Email?</div>
   </div>
-  {% endfor %}
+  <div id="patient-list">
+    {% for patient in patients %}
+    <div id="{{patient.id}}" class="patient">
+      <div class="patient-first-name">{{ patient.first_name }}</div>
+      <div class="patient-last-name">{{ patient.last_name }}</div>
+      <div class="patient-email">{{ patient.email }}</div>
+      <div class="patient-birthday">{{ patient.birthday }}</div>
+      <div class="patient-send-check">
+        {% if patient.email_bool == True %}
+          <input type="checkbox" name="name" value="" checked>
+        {% else %}
+          <input type="checkbox" name="name" value="">
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
-<button id="save-send-changes" type="button" name="button" disabled>Save Changes</button>
+<button id="save-send-changes" type="button" name="button" disabled>
+  <i class="fa fa-check-square-o"></i> Save Changes</button>
 {% endblock %}

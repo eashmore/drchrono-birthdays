@@ -3,7 +3,11 @@ body {
   font-family: sans-serif;
 }
 
-button {
+.bold {
+  font-weight: 600;
+}
+
+button, #email-submit {
   color: #fff;
   padding: 5px 15px;
   font-size: 15px;
@@ -19,20 +23,40 @@ button:hover {
 
 #main {
   margin-top: 75px;
-  margin-left: 12%;
+  margin-left: 10%;
   height: 85vh;
   width: 85vw;
 }
 
+#patient-table, #patient-table-label {
+  background-color: #fff;
+  width: 93%;
+  padding-top: 5px;
+  border-radius: 3px;
+}
+
+#patient-table-label {
+  display: block;
+  font-size: 20px;
+  width: 92.5%;
+  margin-bottom: 5px;
+  background-color: #696f7d;
+  color: white;
+  padding-left: 5px;
+}
+
 #patient-list {
-  width: 86%;
   overflow-y: scroll;
   max-height: 80%;
 }
 
 #patient-table-head {
-  font-weight: 600;
-  width: 84.5%;
+  width: 98.5%;
+  padding-bottom: 5px;
+}
+
+.patient {
+  border-top: 1px solid #f5f5f5;
 }
 
 .patient-first-name {
@@ -79,15 +103,37 @@ button:hover {
   background-color: #459420;
 }
 
-#save-send-changes {
+#save-send-changes, #email-submit {
   margin-top: 20px;
   background-color: #0769AD;
 }
 
 #save-send-changes[disabled] {
   cursor: not-allowed;
-  background-color: grey;
+  color: #D3D3D3;
+  background-color: #808080;
   opacity: 0.2;
+}
+
+/*email*/
+#email-description {
+  font-size: 12px;
+}
+
+#email-body-input, #email-subject-input {
+  width: 75%;
+  max-width: 700px;
+  font-size: 15px;
+}
+
+#email-subject-input {
+  padding: 5px;
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+#email-body-input {
+  height: 75%;
 }
 
 /*navbar*/
@@ -101,7 +147,7 @@ button:hover {
 }
 
 #nav-patients, #nav-email, #sign-out, #to-drchrono {
-  width: 200px;
+  width: 225px;
   text-align: center;
   height: inherit;
   background-color: #55B914;

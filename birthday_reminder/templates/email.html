@@ -1,6 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>EMAIL!</h1>
+<h1>Customize your email message</h1>
+<form class="" action="{% url 'birthday_reminder:doctor' user.id %}" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  {% csrf_token %}
+
+  <label>Email subject line:<br>
+    <input id="email-subject-input" type="text" name="email_subject" value="{{ email_subject }}">
+  </label>
+  <br>
+
+  <label>Email message:<br>
+    <p id="email-description">
+      <span class="bold">Note:</span> "[first name]" will display your patient's first
+      name and "[last name]" will display your patient's last name.
+      <br>
+      For example: if you have a patient named John Doe, "Dear [first name]
+      [last_name]" will display "Dear John Doe".
+    </p>
+    <textarea id="email-body-input" name="email_body" rows="16" cols="40">{{ email_body }}</textarea>
+  </label>
+  <br>
+
+  <input id="email-submit" type="submit" value="Save Changes"/>
+</form>
 
 {% endblock %}
