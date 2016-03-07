@@ -16,30 +16,38 @@ function prepareForSave(e) {
 
 function activeSaveButton() {
   var $button = $('#save-send-changes');
-  $button.addClass('enabled-button');
-  $button.removeAttr('disabled');
-  $button.on('click', saveChanges);
+  if ($button.attr('disabled')) {
+    $button.removeAttr('disabled');
+    $button.addClass('enabled-button');
+    $button.on('click', saveChanges);
+  }
 }
 
 function saveChanges(e) {
+  e.preventDefault();
   var button = e.currentTarget;
   button.textContent = 'Saving changes...';
   button.disabled = true;
+
+  var requests = [];
   var $changedPatients = $('#patient-list').find('.changed');
-  $.each($changedPatients, function(key, patient) {
-    updatePatient(patient);
+  for (var i = 0; i < $changedPatients.length; i++) {
+    requests.push(buildPutRequest($changedPatients[i]));
+  }
+
+  $.when.apply($, requests).done(function() {
+    window.location.reload();
   });
 }
 
-function updatePatient(patient) {
+function buildPutRequest(patient) {
   var checkbox = patient.querySelector('input');
   var bool = false;
   if (checkbox.checked) {
     bool = true;
   }
-
   var csrftoken = getCookie('csrftoken');
-  $.ajax({
+  return $.ajax({
     url: 'api/patient/' + patient.getAttribute('id') + '/',
     type: 'PUT',
     data: {'email_bool': bool},
