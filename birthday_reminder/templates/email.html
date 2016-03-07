@@ -3,22 +3,23 @@
 
 <h1><i class="fa fa-pencil-square-o"></i> Customize your email message</h1>
 <form action="" method="" data-user="{{ user.id }}">
-  <label>Email subject line:<br>
-    <input id="email-subject-input" type="text" name="email_subject" value="{{ email_subject }}">
-  </label>
-  <br>
+  <div id="email-input">
+    <label>Email subject line:<br>
+      <input id="email-subject-input" type="text" name="email_subject" value="{{ email_subject }}">
+    </label>
+    <br>
 
-  <label>Email message:<br>
-    <p id="email-description">
-      <span class="bold">Note:</span> "[first name]" will display your patient's first
-      name and "[last name]" will display your patient's last name.
-      <br>
-      For example: if you have a patient named John Doe, "Dear [first name]
-      [last_name]" will display "Dear John Doe".
-    </p>
-    <textarea id="email-body-input" name="email_body" rows="16" cols="40">{{ email_body }}</textarea>
-  </label>
-  <br>
+    <label>Email message:<br>
+      <p id="email-description">
+        <span class="bold">Note:</span> "[first name]" will display your patient's first
+        name and "[last name]" will display your patient's last name.
+        <br>
+        For example: if you have a patient named John Doe, "Dear [first name]
+        [last_name]" will display "Dear John Doe".
+      </p>
+      <textarea id="email-body-input" name="email_body" rows="16" cols="40">{{ email_body }}</textarea>
+    </label>
+  </div>
 
   <button id="email-submit" type="submit">
     <i class="fa fa-check-square-o"></i> Save Changes
