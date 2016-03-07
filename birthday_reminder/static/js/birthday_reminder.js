@@ -42,6 +42,7 @@ function getChanges(e) {
 }
 
 function saveChanges($patientsList) {
+  $('#saving-wall').removeClass('display-none');
   var requests = [];
   for (var i = 0; i < $patientsList.length; i++) {
     requests.push(buildPutRequest($patientsList[i]));

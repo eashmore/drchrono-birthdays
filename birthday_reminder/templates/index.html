@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <h1>Welcome {{user.doctor.first_name}}</h1>
 <button id="email-all-button" type="button" name="button">
   <i class="fa fa-paper-plane"></i> Set up birthday emails for all patients
@@ -37,5 +36,12 @@
   </div>
 </div>
 <button id="save-send-changes" type="button" name="button" disabled>
-  <i class="fa fa-check-square-o"></i> Save Changes</button>
+  <i class="fa fa-check-square-o"></i> Save Changes
+</button>
+
+<div id="saving-wall" class="display-none">  
+  <div id="saving-status">
+    SAVING...
+  </div>
+</div>
 {% endblock %}

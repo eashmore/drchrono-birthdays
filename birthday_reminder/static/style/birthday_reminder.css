@@ -3,6 +3,13 @@ body {
   font-family: sans-serif;
 }
 
+#main {
+  margin: auto;
+  margin-top: 75px;
+  height: 85vh;
+  width: 85vw;
+}
+
 /*general css*/
 .bold {
   font-weight: 600;
@@ -10,6 +17,10 @@ body {
 
 .clearfix {
   overflow: auto;
+}
+
+.display-none {
+  display: none;
 }
 
 button, #email-submit {
@@ -26,19 +37,17 @@ button:hover {
   opacity: 1.0;
 }
 
-#main {
-  margin: auto;
-  margin-top: 75px;
-  height: 85vh;
-  width: 85vw;
-}
-
 /*login page*/
 #logo {
+  background-color: #fff;
   max-width: 800px;
   width: 85%;
   margin: auto;
-  font-style: Helvetica;
+  font-family: Helvetica;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px #4FA025;
 }
 
 #drchrono-logo {
@@ -53,25 +62,33 @@ button:hover {
   margin-top: -30px;
 }
 
+#about-app {}
+
+#login-button {
+  width: 220px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+#login-button button {
+  padding: 5px;
+  padding: 15px 15px;
+  background-color: #4FA025;
+}
+
+/*patients index*/
 #patient-table, #patient-table-label {
   background-color: #fff;
   padding-top: 5px;
   border-radius: 3px;
 }
 
-#about-app {}
-
-#login-button {
-  margin: auto;
-}
-
-/*patients index*/
 #patient-table-label {
   display: block;
   font-size: 20px;
   margin-bottom: 5px;
   background-color: #696f7d;
-  color: white;
+  color: #fff;
   padding-left: 5px;
 }
 
@@ -143,6 +160,34 @@ button:hover {
   color: #D3D3D3;
   background-color: #808080;
   opacity: 0.2;
+}
+
+#saving-wall, #saving-status {
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+}
+
+#saving-wall {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: #D3D3D3;
+  opacity: 0.6;
+}
+
+#saving-status {
+  text-align: center;
+  margin-top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  width: 200px;
+  background-color: #00008B;
+  color: #fff;
+  padding: 20px 100px;
+  border-radius: 5px;
 }
 
 /*email*/

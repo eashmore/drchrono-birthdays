@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from django.http import QueryDict
+from django.core import serializers
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
 import requests
-from django.core import serializers
 
 from .models import Doctor, Patient
 
@@ -136,8 +136,7 @@ def save_patient(patient_data, user):
 
 # api
 def api_doctor(request, doctor_id):
-    user = User.objects.get(id=doctor_id)
-    doctor = user.doctor
+    doctor = User.objects.get(id=doctor_id).doctor
     if request.method == 'POST':
         data = QueryDict(request.body)
         if (data['_method'] == 'PUT'):
