@@ -62,7 +62,7 @@ function buildPutRequest(patient) {
   var csrftoken = getCookie('csrftoken');
   return $.ajax({
     url: 'api/patient/' + patient.getAttribute('id') + '/',
-    type: 'PUT',
+    type: 'put',
     data: {'email_bool': bool},
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -85,7 +85,7 @@ function saveEmail(e) {
   var csrftoken = getCookie('csrftoken');
   $.ajax({
     url: '/api/doctor/' + user_id +'/',
-    type: 'PUT',
+    type: 'put',
     data: data,
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
