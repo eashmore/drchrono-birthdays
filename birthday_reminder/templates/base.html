@@ -11,9 +11,10 @@
   <body>
     {% if request.user.username %}
     <div id="nav">
-      <div id="nav-patients"><a href="">Patients List</a></div>
-      <div id="nav-email"><a href="#">Customize Email Message</a></div>
-      <div id="sign-out"><a href="/accounts/logout/">Log Out</a></div>
+      <div id="nav-patients"><a href="/">Patients List</a></div>
+      <div id="nav-email"><a href="/email">Customize Email Message</a></div>
+      <div id="sign-out"><a href="/accounts/logout">Log Out</a></div>
+      <div id="to-drchrono"><a href="https://drchrono.com/dashboard/">To drchrono</a></div>
     </div>
     {% endif %}
     <div id="main">

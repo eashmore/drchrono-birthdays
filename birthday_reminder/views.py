@@ -11,13 +11,6 @@ from django.core import serializers
 
 from .models import Doctor, Patient
 
-def new_session(request):
-    return render(request, 'new_session.html')
-
-def logout_view(request):
-    logout(request)
-    return redirect('birthday_reminder:patient_index')
-
 class PatientIndexView(generic.ListView):
     template_name = 'index.html'
     context_object_name = 'patients'
@@ -28,6 +21,17 @@ class PatientIndexView(generic.ListView):
 
     def context(self):
         return {'user': self.request.user}
+
+def new_session_view(request):
+    return render(request, 'new_session.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('birthday_reminder:patient_index')
+
+def email_view(request):
+    context = {'doctor': request.user.doctor}
+    return render(request, 'email.html', context)
 
 def parse_api(request):
     token_data = exchange_token(request.GET)
@@ -97,7 +101,7 @@ def update_patients(user, header):
         data = response.json()
         for patient_data in data['results']:
             if is_valid_patient(patient_data):
-                patient = save_patient(patient_data, user)
+                save_patient(patient_data, user)
 
         patients_url = data['next']
 
