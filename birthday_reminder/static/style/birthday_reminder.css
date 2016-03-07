@@ -1,5 +1,10 @@
+body {
+  background-color: #f5f5f5;
+  font: tahoma;
+}
+
 #main {
-  margin-top: 2%;
+  margin-top: 75px;
   margin-left: 12%;
   height: 85vh;
   width: 85vw;
@@ -54,4 +59,45 @@
 
 .changed {
   background-color: #ADD8E6;
+}
+
+/*navbar*/
+#nav {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background-color: #5CB85C;
+  top: 0;
+  left: 0;
+}
+
+#nav-patients, #nav-email, #sign-out {
+  width: 200px;
+  text-align: center;
+  height: inherit;
+  background-color: #55B914;
+  opacity: 0.8;
+}
+
+#nav-patients:hover, #nav-email:hover, #sign-out:hover {
+  opacity: 1.0;
+}
+
+#nav-patients, #nav-email {
+  float: left;
+  border-right: 1px solid black;
+}
+
+#sign-out {
+  float: right;
+  border-left: 1px solid black;
+}
+
+#nav a {
+  display: block;
+  margin-top: 14px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
+  height: 50px;
 }

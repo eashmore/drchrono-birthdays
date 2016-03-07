@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.http import QueryDict
 
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
 import requests
@@ -13,6 +13,10 @@ from .models import Doctor, Patient
 
 def new_session(request):
     return render(request, 'new_session.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('birthday_reminder:patient_index')
 
 class PatientIndexView(generic.ListView):
     template_name = 'index.html'

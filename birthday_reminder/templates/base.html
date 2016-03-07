@@ -9,6 +9,13 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   </head>
   <body>
+    {% if request.user.username %}
+    <div id="nav">
+      <div id="nav-patients"><a href="">Patients List</a></div>
+      <div id="nav-email"><a href="#">Customize Email Message</a></div>
+      <div id="sign-out"><a href="/accounts/logout/">Log Out</a></div>
+    </div>
+    {% endif %}
     <div id="main">
       {% block content %}
       {% endblock %}

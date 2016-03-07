@@ -6,6 +6,7 @@ from . import views
 app_name = 'birthday_reminder'
 urlpatterns = [
     url(r'^accounts/login/$', views.new_session, name='new_session'),
+    url(r'^accounts/logout/$', views.logout_view, name='logout'),
     url(r'^loading/$', views.parse_api, name='loading'),
     url(r'^$', login_required(views.PatientIndexView.as_view()), name='patient_index'),
 
