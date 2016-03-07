@@ -93,7 +93,11 @@ def save_doctor(doctor_data, username):
         user=user,
     )
     user.save()
-    doctor.save()
+    if Doctor.objects.filter(pk=user).exists():
+        doctor.save(update_fields=['first_name', 'last_name'])
+    else:
+        doctor.save()
+
     return user
 
 def get_data_from_api(endpoint, header):
@@ -131,7 +135,11 @@ def save_patient(patient_data, user):
         birthday=patient_data['date_of_birth'],
         doctor=user.doctor
     )
-    patient.save()
+
+    if Patient.objects.filter(pk=patient_data['id']).exists():
+        patient.save(update_fields=['first_name', 'last_name', 'email'])
+    else:
+        patient.save()
     return patient
 
 # api
