@@ -11,16 +11,12 @@ import requests
 
 from .models import Doctor, Patient
 
-# class RootView(generic.ListView):
-#     template_name = 'index.html'
-#     context_object_name = 'patients'
-#
-#     def get_queryset(self):
-#         patients = Patient.objects.filter(doctor=self.request.user.doctor)
-#         return patients.order_by('last_name')
-#
-#     def context(self):
-#         return {'user': self.request.user}
+def new_session_view(request):
+    return render(request, 'new_session.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('birthday_reminder:root_view')
 
 def root_view(request):
     doctor = request.user.doctor
@@ -32,13 +28,6 @@ def root_view(request):
 
     return render(request, 'index.html', context)
 
-def new_session_view(request):
-    return render(request, 'new_session.html')
-
-def logout_view(request):
-    logout(request)
-    return redirect('birthday_reminder:root_view')
-
 def email_view(request):
     user = request.user
     doctor = user.doctor
@@ -49,6 +38,36 @@ def email_view(request):
     }
 
     return render(request, 'email.html', context)
+
+# my api
+class DoctorView(generic.DetailView):
+    model = Doctor
+
+    def put(self, request, **kwargs):
+        doctor = User.objects.get(pk=kwargs['pk']).doctor
+        updateInstance(doctor, request.body)
+        doctorJSON = serializers.serialize("json", [doctor])
+        return HttpResponse(doctorJSON, content_type='application/json')
+
+class PatientView(generic.DetailView):
+    model = Patient
+
+    def put(self, request, **kwargs):
+        patient = Patient.objects.get(pk=kwargs['pk'])
+        updateInstance(patient, request.body)
+        patientJSON = serializers.serialize("json", [patient])
+        return HttpResponse(patientJSON, content_type='application/json')
+
+def updateInstance(model, body):
+    data = QueryDict(body)
+    for key in data:
+        value = data[key]
+        if value == 'false':
+            value = False
+
+        setattr(model, key, value)
+
+    model.save()
 
 # parse drchrono api
 def parse_drchrono_api(request):
@@ -151,33 +170,3 @@ def save_patient(patient_data, user):
         patient.save()
 
     return patient
-
-# my api
-class DoctorView(generic.DetailView):
-    model = Doctor
-
-    def put(self, request, **kwargs):
-        doctor = User.objects.get(pk=kwargs['pk']).doctor
-        updateInstance(doctor, request.body)
-        doctorJSON = serializers.serialize("json", [doctor])
-        return HttpResponse(doctorJSON, content_type='application/json')
-
-class PatientView(generic.DetailView):
-    model = Patient
-
-    def put(self, request, **kwargs):
-        patient = Patient.objects.get(pk=kwargs['pk'])
-        updateInstance(patient, request.body)
-        patientJSON = serializers.serialize("json", [patient])
-        return HttpResponse(patientJSON, content_type='application/json')
-
-def updateInstance(model, body):
-    data = QueryDict(body)
-    for key in data:
-        value = data[key]
-        if value == 'false':
-            value = False
-
-        setattr(model, key, value)
-
-    model.save()
