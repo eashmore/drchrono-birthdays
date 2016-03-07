@@ -14,6 +14,13 @@ from .models import Doctor, Patient
 def new_session_view(request):
     return render(request, 'new_session.html')
 
+def auth_view(request):
+    user = parse_drchrono_api(request.GET)
+    new_password = user.doctor.set_random_user_password()
+    auth_user = authenticate(username=user.username, password=new_password)
+    login(request, auth_user)
+    return redirect('birthday_reminder:root_view')
+
 def logout_view(request):
     logout(request)
     return redirect('birthday_reminder:root_view')
@@ -70,19 +77,14 @@ def updateInstance(model, body):
     model.save()
 
 # parse drchrono api
-def parse_drchrono_api(request):
-    token_data = exchange_token(request.GET)
+def parse_drchrono_api(code):
+    token_data = exchange_token(code)
     header = {
         'Authorization': 'Bearer %s' % token_data['access_token'],
     }
     user = get_user(header)
     update_patients(user, header)
-
-    user.set_password(token_data['access_token'])
-    user.save()
-    auth_user = authenticate(username=user.username, password=token_data['access_token'])
-    login(request, auth_user)
-    return redirect('birthday_reminder:root_view')
+    return user
 
 def exchange_token(params):
     if 'error' in params:
@@ -91,7 +93,7 @@ def exchange_token(params):
     content = {
         'code': params['code'],
         'grant_type': 'authorization_code',
-        'redirect_uri': 'http://localhost:8000/loading',
+        'redirect_uri': 'http://localhost:8000/auth/',
         'client_id': 'g9fTx7H3gXlnZOA2SeoPmE4NV1MIh5yU4lOoxmX4',
         'client_secret': 'Kf82PCpQCpvYEkMcoWI5HH5TDaV09cVcG4IBiW7xCgZqvrm6HyEqld6P4DjU6IG3xRQn0weD1MmODkOQpLXEjiMrJ19XC9IiogwVczQWZVhWRzgEFbPf4VqqtALtNsCc',
     }

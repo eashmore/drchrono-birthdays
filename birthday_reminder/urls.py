@@ -7,7 +7,7 @@ app_name = 'birthday_reminder'
 urlpatterns = [
     url(r'^accounts/login/$', views.new_session_view, name='new_session'),
     url(r'^accounts/logout/$', views.logout_view, name='logout'),
-    url(r'^loading/$', views.parse_drchrono_api, name='loading'),
+    url(r'^auth/$', views.auth_view, name='auth'),
     url(r'^$', login_required(views.root_view), name='root_view'),
     url(r'^email/$', login_required(views.email_view), name="custom_email"),
 

@@ -59,6 +59,7 @@ function buildPutRequest(patient) {
   if (patient.classList.contains('changed') && !checkbox.checked) {
     bool = false;
   }
+
   var csrftoken = getCookie('csrftoken');
   return $.ajax({
     url: 'api/patient/' + patient.getAttribute('id') + '/',
@@ -81,25 +82,26 @@ function saveEmail(e) {
   button.disabled = true;
   var $form = $(e.currentTarget.parentElement);
   var data = $form.serialize();
-  var user_id = $form.data('user');
 
   var csrftoken = getCookie('csrftoken');
   $.ajax({
-    url: '/api/doctor/' + user_id +'/',
+    url: '/api/doctor/' + $form.data('user') +'/',
     type: 'put',
     data: data,
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
     },
-    success: function() {
-      button.disabled = false;
-      var saveSuccess = $('#save-success');
-      saveSuccess.removeClass('display-none');
-      setTimeout(function() {
-        saveSuccess.addClass('display-none');
-      }, 1500);
-    }
+    success: successfulSave(button),
   });
+}
+
+function successfulSave(button) {
+  button.disabled = false;
+  var saveSuccess = $('#save-success');
+  saveSuccess.removeClass('display-none');
+  setTimeout(function() {
+    saveSuccess.addClass('display-none');
+  }, 1500);
 }
 
 //From Django docs https://docs.djangoproject.com/en/1.9/ref/csrf/
