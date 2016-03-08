@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <h1>Welcome {{doctor.first_name}}</h1>
 <button id="email-all-button" type="button" name="button">
-  <i class="fa fa-paper-plane"></i> Set up birthday emails for all patients
+  <i class="fa fa-paper-plane"></i> Add all patients to birthday email list
+</button>
+<button id="email-none-button" type="button" name="button">
+  <i class="fa fa-times"></i> Remove all patients from birthday email list
 </button>
 
 <label id="patient-table-label" class="bold" for="patient-table">
@@ -10,8 +14,8 @@
 </label>
 <div id="patient-table">
   <div id="patient-table-head" class="bold">
-    <div class="patient-first-name">First Name</div>
     <div class="patient-last-name">Last Name</div>
+    <div class="patient-first-name">First Name</div>
     <div class="patient-email">Email</div>
     <div class="patient-birthday">Birthday</div>
     <div class="patient-send-check">Send Email?</div>
@@ -19,8 +23,8 @@
   <div id="patient-list">
     {% for patient in patients %}
     <div id="{{patient.id}}" class="patient">
-      <div class="patient-first-name">{{ patient.first_name }}</div>
       <div class="patient-last-name">{{ patient.last_name }}</div>
+      <div class="patient-first-name">{{ patient.first_name }}</div>
       <div class="patient-email">{{ patient.email }}</div>
       <div class="patient-birthday">{{ patient.birthday }}</div>
       <div class="patient-send-check">
@@ -38,9 +42,6 @@
   <i class="fa fa-check-square-o"></i> Save Changes
 </button>
 
-<div id="saving-wall" class="display-none">
-  <div id="saving-status">
-    SAVING...
-  </div>
-</div>
+<div id="save-success" class="display-none bold">Save successful</div>
+<div id="save-guard" class="display-none"></div>
 {% endblock %}
