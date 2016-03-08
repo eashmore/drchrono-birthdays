@@ -1,5 +1,8 @@
 // Add listeners for patient updates
 function listenForPatientUpdate() {
+  var $updateListButton = $('#update-list-button');
+  $updateListButton.on('click', displayLoading);
+
   var $allPatientsButton = $('#email-all-button');
   $allPatientsButton.on('click', toggleAllPatients);
 
@@ -8,6 +11,12 @@ function listenForPatientUpdate() {
 
   var $patientList = $('#patient-list');
   $patientList.on('change', 'input', markUserForUpdate);
+}
+
+function displayLoading() {
+  $('#save-guard').removeClass('display-none');
+  $('#save-guard').addClass('loading-guard');
+  $('#loading-screen').removeClass('display-none');
 }
 
 // Update all patients
@@ -67,9 +76,12 @@ function saveChanges($patientsList, boolean) {
 
 // Sends all ajax requests at once and runs callback after all are complete
 function sendRequests(requests) {
-  $.when.apply($, requests).done(function() {
+  $.when.apply($, requests).then(function() {
     $('#save-guard').addClass('display-none');
     successSave();
+  }, function() {
+    $('#save-guard').addClass('display-none');
+    errorSave();
   });
 }
 
@@ -131,16 +143,29 @@ function saveEmail(e) {
     success: function() {
       saveButton.disabled = false;
       successSave();
+    },
+    error: function() {
+      saveButton.disabled = false;
+      errorSave();
     }
   });
 }
 
-// Displays message on successful save
+// Displays message after save
 function successSave() {
   var saveSuccess = $('#save-success');
-  saveSuccess.removeClass('display-none');
+  showSaveResult(saveSuccess);
+}
+
+function errorSave() {
+  var saveFail = $('#save-fail');
+  showSaveResult(saveFail);
+}
+
+function showSaveResult(saveStatus) {
+  saveStatus.removeClass('display-none');
   setTimeout(function() {
-    saveSuccess.addClass('display-none');
+    saveStatus.addClass('display-none');
   }, 1500);
 }
 
