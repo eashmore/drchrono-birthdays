@@ -35,6 +35,7 @@ button {
 
 button:hover {
   opacity: 1.0;
+  box-shadow: 0px 0px 3px #808080;
 }
 
 /*login page*/
@@ -59,16 +60,25 @@ button:hover {
 #login-button {
   width: 220px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 #login-button button {
-  padding: 5px;
-  padding: 15px 15px;
+  color: #f5f5f5;
+  padding: 15px 10px;
   background-color: #4FA025;
+  border: 1px solid #4FA025;
+  opacity: 0.8;
 }
 
-/*patients index*/
+#login-button button:hover {
+  color: #fff;
+  border: 1px solid darkgreen;
+  opacity: 1.0;
+  box-shadow: 0px 0px 3px #000;
+}
+
+/*patients list*/
 #patient-table {
   background-color: #fff;
   border-radius: 3px;
@@ -140,6 +150,35 @@ button:hover {
   background-color: #ADD8E6;
 }
 
+#update-list-button {
+  float: right;
+  font-size: 13px;
+  margin: left;
+  margin-right: 1%;
+  padding: 1px 10px;
+  background-color: #364650;
+}
+
+/*edit email page*/
+#email-description {
+  font-size: 13px;
+}
+
+#email-subject-input {
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.email-input {
+  width: 75%;
+  max-width: 700px;
+  font-size: 15px;
+  border: 0px;
+  box-shadow: 0 1px 1px #ccc;
+  padding: 10px;
+}
+
+/*save buttons and save results*/
 #email-all-button, #email-none-button  {
   width: 360px;
   margin-bottom: 5px;
@@ -165,6 +204,10 @@ button:hover {
   background-color: #808080;
   opacity: 0.2;
 }
+.save-button[disabled]:hover {
+  opacity: 0.2;
+  box-shadow: 0px 0px 0px #000;
+}
 
 .center-screen {
   position: absolute;
@@ -184,28 +227,6 @@ button:hover {
   opacity: 0.9;
 }
 
-.save-result {
-  position: fixed;
-  left: 0;
-  right: 0;
-  text-align: center;
-  top: 75px;
-  padding: 15px 0px;
-  font-size: 30px;
-  opacity: 0.9;
-}
-
-#save-success {
-  background-color: #fcf8e3;
-  border: 1px solid #faebcc;
-}
-
-#save-fail {
-  background-color: #A21515;
-  border: 1px solid #790F0F;
-  color: #fff;
-}
-
 #loading-screen {
   text-align: center;
   margin-top: 200px;
@@ -219,32 +240,26 @@ button:hover {
   border-radius: 5px;
 }
 
-#update-list-button {
-  float: right;
-  font-size: 13px;
-  margin: left;
-  margin-right: 1%;
-  padding: 1px 10px;
-  background-color: #364650;
+#save-success {
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
 }
 
-/*email*/
-#email-description {
-  font-size: 13px;
+#save-fail {
+  background-color: #A21515;
+  border: 1px solid #790F0F;
+  color: #fff;
 }
 
-.email-input {
-  width: 75%;
-  max-width: 700px;
-  font-size: 15px;
-  border: 0px;
-  box-shadow: 0 1px 1px #ccc;
-  padding: 10px;
-}
-
-#email-subject-input {
-  margin-bottom: 25px;
-  margin-top: 10px;
+.save-result {
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 75px;
+  padding: 15px 0px;
+  font-size: 30px;
+  opacity: 0.9;
 }
 
 /*navbar*/

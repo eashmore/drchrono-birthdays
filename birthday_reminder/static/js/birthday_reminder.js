@@ -69,7 +69,7 @@ function saveChanges($patientsList, boolean) {
     }
 
     requests.push(buildPutRequest($patientsList[i], isCheck));
-    updatePatientEl($patientsList[i], isCheck);
+    updatePatientElement($patientsList[i], isCheck);
   }
   sendRequests(requests);
 }
@@ -96,7 +96,7 @@ function isChecked(patient) {
 }
 
 // Updates patient DOM element to reflect changes from update
-function updatePatientEl(patient, bool) {
+function updatePatientElement(patient, bool) {
   var checkbox = patient.querySelector('input');
   if (bool) {
     checkbox.checked = true;

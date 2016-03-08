@@ -4,48 +4,13 @@
     <meta charset="utf-8">
     <title>drchrono Birthday Reminder</title>
     {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'style/birthday_reminder.css' %}" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   </head>
   <body>
-    {% if request.user.username %}
-    <div id="nav">
-      <div id="nav-left">
-        <div id="nav-patients" class="nav-link nav-link-left">
-          <a href="{% url 'birthday_reminder:index_view' %}">
-            <div class="nav-class-text">
-              <i class="fa fa-list fa-lg"></i> Patients List
-            </div>
-          </a>
-        </div><div id="nav-email" class="nav-link nav-link-left">
-          <a href="{% url 'birthday_reminder:custom_email' %}">
-            <div class="nav-class-text">
-              <i class="fa fa-envelope-o fa-lg"></i> Customize Email Message
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div id="nav-right">
-        <div id="to-drchrono" class="nav-link nav-link-right">
-          <a href="https://drchrono.com/dashboard/">
-            <div class="nav-class-text">
-              <img src="{% static 'images/drchrono-sm.png' %}" alt="" />
-              <span id="drchrono-nav-text">To drchrono</span>
-            </div>
-          </a>
-        </div><div id="sign-out" class="nav-link nav-link-right">
-          <a href="{% url 'birthday_reminder:logout' %}">
-            <div class="nav-class-text">
-              <i class="fa fa-sign-out fa-lg"></i> Log Out
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
+    {% if request.user.is_authenticated %}
+      {% include 'partials/_nav.html' %}
     {% endif %}
 
     <div id="main">
@@ -53,6 +18,8 @@
       {% endblock %}
     </div>
 
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="{% static 'js/birthday_reminder.js' %}"></script>
   </body>
 </html>

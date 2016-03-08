@@ -20,7 +20,7 @@ class Doctor(models.Model):
     def __str__(self):
         return self.last_name
 
-    def set_random_user_password(self):
+    def set_random_password(self):
         user = self.user
         all_chars = string.letters + string.digits + string.punctuation
         password = ''.join((random.choice(all_chars)) for x in range(20))
