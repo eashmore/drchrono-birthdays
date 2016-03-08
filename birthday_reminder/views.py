@@ -16,8 +16,10 @@ def new_session_view(request):
 
 def auth_view(request):
     user = parse_drchrono_api(request.GET)
-    new_password = user.doctor.set_random_user_password()
-    auth_user = authenticate(username=user.username, password=new_password)
+    auth_user = authenticate(
+        username=user.username,
+        password=user.doctor.set_random_user_password()
+    )
     login(request, auth_user)
     return redirect('birthday_reminder:root_view')
 

@@ -23,7 +23,7 @@ body {
   display: none;
 }
 
-button, #email-submit {
+button {
   color: #fff;
   padding: 5px 15px;
   font-size: 15px;
@@ -153,12 +153,12 @@ button:hover {
   background-color: #B22222;
 }
 
-#save-send-changes, #email-submit {
+.save-button {
   margin-top: 20px;
   background-color: #0769AD;
 }
 
-#save-send-changes[disabled], #email-submit[disabled] {
+.save-button[disabled] {
   cursor: default;
   color: #D3D3D3;
   background-color: #808080;

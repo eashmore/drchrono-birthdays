@@ -34,7 +34,7 @@ function markUserForUpdate(e) {
 }
 
 function activateSaveButton() {
-  var $saveButton = $('#save-send-changes');
+  var $saveButton = $('#save-changes-button');
   if ($saveButton.attr('disabled')) {
     $saveButton.removeAttr('disabled');
     $saveButton.addClass('enabled-button');
@@ -53,13 +53,14 @@ function getMarkedPatients(e) {
 function saveChanges($patientsList, boolean) {
   $('#save-guard').removeClass('display-none');
   var requests = [];
+  var isCheck = boolean;
   for (var i = 0; i < $patientsList.length; i++) {
     if (boolean === undefined) {
-      boolean = isChecked($patientsList[i]);
+      isCheck = isChecked($patientsList[i]);
     }
 
-    requests.push(buildPutRequest($patientsList[i], boolean));
-    updatePatientEl($patientsList[i], boolean);
+    requests.push(buildPutRequest($patientsList[i], isCheck));
+    updatePatientEl($patientsList[i], isCheck);
   }
   sendRequests(requests);
 }
@@ -97,7 +98,7 @@ function updatePatientEl(patient, bool) {
 function buildPutRequest(patient, bool) {
   var csrftoken = getCookie('csrftoken');
   return $.ajax({
-    url: 'api/patient/' + patient.getAttribute('id') + '/',
+    url: 'api/patient/' + patient.dataset.patient + '/',
     type: 'put',
     data: {'email_bool': bool},
     beforeSend: function(xhr) {
@@ -108,27 +109,27 @@ function buildPutRequest(patient, bool) {
 
 // Add listener for doctor email updates
 function listenForEmailUpdate() {
-  var $button = $('#email-submit');
+  var $button = $('#save-email-button');
   $button.on('click', saveEmail);
 }
 
 function saveEmail(e) {
   e.preventDefault();
-  var button = e.currentTarget;
-  button.disabled = true;
+  var saveButton = e.currentTarget;
+  saveButton.disabled = true;
   var $form = $(e.currentTarget.parentElement);
   var data = $form.serialize();
 
   var csrftoken = getCookie('csrftoken');
   $.ajax({
-    url: '/api/doctor/' + $form.data('user') +'/',
+    url: '/api/doctor/' + $form.data('user-id') +'/',
     type: 'put',
     data: data,
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
     },
     success: function() {
-      button.disabled = false;
+      saveButton.disabled = false;
       successSave();
     }
   });

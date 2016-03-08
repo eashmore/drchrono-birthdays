@@ -3,7 +3,7 @@
 
 <div id="save-success" class="display-none bold">Save successful</div>
 <h1><i class="fa fa-pencil-square-o"></i> Customize your email message</h1>
-<form action="" method="" data-user="{{ user.id }}">
+<form action="" method="" data-user-id="{{ user.id }}">
   <div id="email-input">
     <label>Email subject line:<br>
       <input id="email-subject-input" type="text" name="email_subject" value="{{ email_subject }}">
@@ -22,7 +22,7 @@
     </label>
   </div>
 
-  <button id="email-submit" type="submit">
+  <button id="save-email-button" class="save-button" type="submit">
     <i class="fa fa-check-square-o"></i> Save Changes
   </button>
 </form>

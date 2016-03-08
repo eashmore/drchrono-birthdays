@@ -22,7 +22,7 @@
   </div>
   <div id="patient-list">
     {% for patient in patients %}
-    <div id="{{patient.id}}" class="patient">
+    <div class="patient" data-patient="{{patient.id}}">
       <div class="patient-last-name">{{ patient.last_name }}</div>
       <div class="patient-first-name">{{ patient.first_name }}</div>
       <div class="patient-email">{{ patient.email }}</div>
@@ -38,7 +38,7 @@
     {% endfor %}
   </div>
 </div>
-<button id="save-send-changes" type="button" name="button" disabled>
+<button id="save-changes-button" class="save-button" type="button" name="button" disabled>
   <i class="fa fa-check-square-o"></i> Save Changes
 </button>
 
