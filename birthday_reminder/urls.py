@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^accounts/error/$', views.session_error_view, name='session_error'),
     url(r'^accounts/logout/$', views.logout_view, name='logout'),
     url(r'^auth/$', views.auth_view, name='auth'),
-    url(r'^$', login_required(views.root_view), name='root_view'),
+    url(r'^$', login_required(views.index_view), name='index_view'),
     url(r'^email/$', login_required(views.edit_email_view), name="custom_email"),
 
     url(r'^api/doctor/(?P<pk>[0-9]+)/$',
