@@ -69,13 +69,14 @@ button:hover {
 }
 
 /*patients index*/
-#patient-table, #patient-table-label {
+#patient-table {
   background-color: #fff;
-  padding-top: 5px;
   border-radius: 3px;
 }
 
 #patient-table-label {
+  padding-top: 5px;
+  border-radius: 3px;
   display: block;
   font-size: 20px;
   margin-bottom: 5px;
@@ -92,7 +93,7 @@ button:hover {
 
 #patient-table-head {
   width: 98.5%;
-  padding-bottom: 5px;
+  padding: 4px 0px;
 }
 
 .patient {
@@ -165,7 +166,7 @@ button:hover {
   opacity: 0.2;
 }
 
-#save-guard, #loading-screen {
+.center-screen {
   position: absolute;
   z-index: 1000;
   left: 0;
@@ -183,17 +184,20 @@ button:hover {
   opacity: 0.9;
 }
 
-#save-success, #save-fail {
+.save-result {
   position: fixed;
   left: 0;
   right: 0;
   text-align: center;
   top: 75px;
-  background-color: #fcf8e3;
-  border: 1px solid #faebcc;
   padding: 15px 0px;
   font-size: 30px;
   opacity: 0.9;
+}
+
+#save-success {
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
 }
 
 #save-fail {
@@ -229,7 +233,7 @@ button:hover {
   font-size: 13px;
 }
 
-#email-body-input, #email-subject-input {
+.email-input {
   width: 75%;
   max-width: 700px;
   font-size: 15px;
@@ -253,29 +257,37 @@ button:hover {
   left: 0;
 }
 
-#nav-patients, #nav-email, #sign-out, #to-drchrono {
+#nav-left {
+  float: left;
+}
+
+#nav-right {
+  float: right;
+}
+
+.nav-link {
   width: 225px;
   text-align: center;
   height: inherit;
   background-color: #55B914;
   opacity: 0.7;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
-#nav-patients:hover, #nav-email:hover, #sign-out:hover, #to-drchrono:hover {
+.nav-link:hover {
   opacity: 1.0;
 }
 
-#nav-patients, #nav-email {
-  float: left;
+.nav-link-left {
   border-right: 1px solid #C0C0C0;
 }
 
-#sign-out, #to-drchrono {
-  float: right;
+.nav-link-right {
   border-left: 1px solid #C0C0C0;
 }
 
-#nav a {
+.nav-link>a {
   display: block;
   position: relative;
   font-size: 15px;
@@ -289,7 +301,7 @@ button:hover {
   padding-top: 10px;
 }
 
-.drchrono-nav-text {
+#drchrono-nav-text {
   position: relative;
   top: -5px;
 }
@@ -304,7 +316,7 @@ button:hover {
     width: 125px;
   }
 
-  #email-body-input, #email-subject-input {
+  .email-input {
     width: 100%;
   }
 }

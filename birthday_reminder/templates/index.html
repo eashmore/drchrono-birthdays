@@ -11,14 +11,13 @@
 
 <label id="patient-table-label" class="bold" for="patient-table">
   <i class="fa fa-users"></i> PATIENTS
-
   <a href="https://drchrono.com/o/authorize/?redirect_uri=http%3A//localhost%3A8000/auth/&response_type=code&client_id=g9fTx7H3gXlnZOA2SeoPmE4NV1MIh5yU4lOoxmX4&scope=patients:read%20user:read">
     <button id="update-list-button" type="button" name="button">
       Update Patient List from drchrono
     </button>
   </a>
-
 </label>
+
 <div id="patient-table">
   <div id="patient-table-head" class="bold">
     <div class="patient-last-name">Last Name</div>
@@ -45,17 +44,24 @@
     {% endfor %}
   </div>
 </div>
-<button id="save-changes-button" class="save-button" type="button" name="button" disabled>
+<button id="save-changes-button" class="save-button"
+  type="button" name="button" disabled
+>
   <i class="fa fa-check-square-o"></i> Save Changes
 </button>
 
-<div id="save-success" class="display-none bold">Save successful</div>
-<div id="save-fail" class="display-none bold">Save failed, please try again</div>
+<div id="save-success" class="save-result display-none bold">
+  Save successful
+</div>
+<div id="save-fail" class="save-result display-none bold">
+  Save failed, please try again
+</div>
 
-<div id="save-guard" class="display-none">
-  <div id="loading-screen" class="display-none">
+<div id="save-guard" class="center-screen display-none">
+  <div id="loading-screen" class="center-screen display-none">
     Updating patient list<br>
     Please wait...
   </div>
 </div>
+
 {% endblock %}

@@ -5,16 +5,17 @@ from django.db import models
 import string
 import random
 
+default_email_message = "Dear [first name] [last name],\n\nHappy birthday!\n\nSincerely,\nDr. {0}"
+default_email_subject = "Happy birthday from Dr. {0}"
+
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
-
-    default_subject = "Happy birthday from {0}"
-    email_subject = models.CharField(max_length=256, default=default_subject)
-
-    default_message = "Dear [first name] [last name],\n\nHappy birthday!\n\nSincerely,\n{0}"
-    email_body = models.TextField(default=default_message)
+    email_subject = models.CharField(
+        max_length=256, default=default_email_subject
+    )
+    email_body = models.TextField(default=default_email_message)
 
     def __str__(self):
         return self.last_name

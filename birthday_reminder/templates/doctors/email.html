@@ -4,21 +4,22 @@
 <h1><i class="fa fa-pencil-square-o"></i> Customize your email message</h1>
 <form action="" method="" data-user-id="{{ user.id }}">
   <div id="email-input">
-    <label>Email subject line:<br>
-      <input id="email-subject-input" type="text" name="email_subject" value="{{ email_subject }}">
-    </label>
-    <br>
+    <div>Email subject line:</div>
+    <input id="email-subject-input" class="email-input" type="text"
+      name="email_subject" value="{{ email_subject }}"
+    >
 
-    <label>Email message:<br>
-      <p id="email-description">
-        <span class="bold">Note:</span> "[first name]" will display your patient's first
-        name and "[last name]" will display your patient's last name.
-        <br>
-        e.g., If you have a patient named John Doe, "Dear [first name]
-        [last name]" will display "Dear John Doe".
-      </p>
-      <textarea id="email-body-input" name="email_body" rows="16" cols="40">{{ email_body }}</textarea>
-    </label>
+    <div>Email message:</div>
+    <p id="email-description">
+      <span class="bold">Note:</span> "[first name]" will display your patient's
+       first name and "[last name]" will display your patient's last name.
+      <br>
+      e.g., If you have a patient named John Doe, "Dear [first name]
+       [last name]" will display "Dear John Doe".
+    </p>
+    <textarea id="email-body-input" class="email-input" name="email_body"
+      rows="16" cols="40">{{ email_body }}</textarea
+    >
   </div>
 
   <button id="save-email-button" class="save-button" type="submit">
@@ -26,6 +27,11 @@
   </button>
 </form>
 
-<div id="save-success" class="display-none bold">Save successful</div>
-<div id="save-fail" class="display-none bold">Save failed, please try again</div>
+<div id="save-success" class="save-result display-none bold">
+  Save successful
+</div>
+<div id="save-fail" class="save-result display-none bold">
+  Save failed, please try again
+</div>
+
 {% endblock %}

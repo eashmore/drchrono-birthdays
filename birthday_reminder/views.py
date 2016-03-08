@@ -48,8 +48,8 @@ def edit_email_view(request):
     doctor = user.doctor
     context = {
         'user': user,
-        'email_subject': doctor.email_subject.format('Dr. ' + doctor.last_name),
-        'email_body': doctor.email_body.format('Dr. ' + doctor.last_name)
+        'email_subject': doctor.email_subject.format(doctor.last_name),
+        'email_body': doctor.email_body.format(doctor.last_name)
     }
 
     return render(request, 'doctors/email.html', context)

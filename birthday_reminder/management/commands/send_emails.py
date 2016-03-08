@@ -1,17 +1,20 @@
 from django.core.management.base import BaseCommand
 from birthday_reminder.models import Doctor
-from django.core.mail import send_mail
+from django.core.mail import send_mass_mail
 
 import datetime
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        def email_bday_patients(doctor):
+        def get_bday_emails(doctor):
+            emails = []
             patient_set = doctor.patient_set
             for patient in patient_set.all():
                 if is_birthday(patient):
-                    email_patient(doctor, patient)
+                    message = (generate_email(doctor, patient))
+                    emails.append(message)
 
+            return emails
 
         def is_birthday(patient):
             currentDate = datetime.date.today()
@@ -21,19 +24,21 @@ class Command(BaseCommand):
 
             return False
 
-        def email_patient(doctor, patient):
-            subject = doctor.email_subject
+        def generate_email(doctor, patient):
+            subject = doctor.email_subject.format(doctor.last_name)
             subject = subject.replace('[first name]', patient.first_name)
             subject = subject.replace('[last name]', patient.last_name)
 
-            body = doctor.email_body
+            body = doctor.email_body.format(doctor.last_name)
             body = body.replace('[first name]', patient.first_name)
             body = body.replace('[last name]', patient.last_name)
 
-            send_mail(subject, body, 'drchrono.birthday.reminder@gmail.com',
-                      [patient.email], fail_silently=False
-                     )
+            message = (subject, body, 'edashmore@gmail.com',
+                       [patient.email]
+                      )
+            return message
 
         doctors = Doctor.objects.all()
         for doctor in doctors:
-            email_bday_patients(doctor)
+            emails = get_bday_emails(doctor)
+            send_mass_mail(tuple(emails), fail_silently=False)
