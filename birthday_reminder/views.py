@@ -73,8 +73,8 @@ class PatientView(generic.DetailView):
         patientJSON = serializers.serialize("json", [patient])
         return HttpResponse(patientJSON, content_type='application/json')
 
-def updateInstance(model, body):
-    data = QueryDict(body)
+def updateInstance(model, request_body):
+    data = QueryDict(request_body)
     for key in data:
         value = data[key]
         if value == 'false':

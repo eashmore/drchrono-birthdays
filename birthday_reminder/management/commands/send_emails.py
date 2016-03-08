@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand
 from birthday_reminder.models import Doctor
 from django.core.mail import send_mail
 
-
 import datetime
 
 class Command(BaseCommand):
