@@ -1,18 +1,38 @@
+from django.http import QueryDict
 from django.contrib.auth.models import User
 import requests
 
-from .models import Doctor, Patient
+from models import Doctor, Patient
 
-# Get user data from drchrono api and update user and patients rows in db
+def update_instance(model, request_body):
+    """
+    Updates instance model with new data
+    """
+    data = QueryDict(request_body)
+    for key in data:
+        value = data[key]
+        if value == 'false':
+            value = False
+
+        setattr(model, key, value)
+
+    model.save()
+
+# Access drchrono api
 def get_drchrono_user(request_params):
+    """
+    Get user data from drchrono api and update user and patients rows in db
+    """
     access_token = exchange_token(request_params)
     current_doctor_data = get_doctor_data(access_token)
     user = save_user(current_doctor_data)
     update_patients(user, access_token)
     return user
 
-# Get access token
 def exchange_token(params):
+    """
+    Get access token from drchrono
+    """
     content = {
         'code': params['code'],
         'grant_type': 'authorization_code',
@@ -25,8 +45,10 @@ def exchange_token(params):
     data = response.json()
     return data['access_token']
 
-# Find doctor data for current drchrono user
 def get_doctor_data(access_token):
+    """
+    Get doctor data for current drchrono user
+    """
     header = {'Authorization': 'Bearer %s' % access_token}
     user_data = get_user_data(header)
 
@@ -35,8 +57,10 @@ def get_doctor_data(access_token):
     data['username'] = user_data['username']
     return data
 
-# Find user data for current drchrono user
 def get_user_data(header):
+    """
+    Get user data for current drchrono user
+    """
     endpoint = 'users/current'
     current_doctor_data = get_drchrono_data(endpoint, header)
     return current_doctor_data
@@ -59,8 +83,10 @@ def save_user(doctor_data):
 
     return user
 
-# Find the current user's patients and insert/update patient's row in db
 def update_patients(user, access_token):
+    """
+    Find the current user's patients and insert/update patient's row in db
+    """
     patients_url = 'https://drchrono.com/api/patients'
     while patients_url:
         response = requests.get(patients_url, headers={
@@ -73,8 +99,11 @@ def update_patients(user, access_token):
 
         patients_url = data['next']
 
-# Patient is only valid if they have both an email and a birthday
 def is_valid_patient(patient_data):
+    """
+    Checks is a patient is valid.
+    Patients are only valid if they have both an email and a birthday.
+    """
     if patient_data['email'] and patient_data['date_of_birth']:
         return True
 
@@ -99,6 +128,9 @@ def save_patient(patient_data, user):
     return patient
 
 def get_drchrono_data(endpoint, header):
+    """
+    Helper function to get data the from the drchrono api
+    """
     response = requests.get(
         'https://drchrono.com/api/%s' % endpoint,
         headers=header
