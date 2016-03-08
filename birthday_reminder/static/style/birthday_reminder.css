@@ -188,11 +188,11 @@ button:hover {
   left: 0;
   right: 0;
   text-align: center;
-  top: 43px;
+  top: 50px;
   background-color: #fcf8e3;
   border: 1px solid #faebcc;
   padding: 5px 0px;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 #save-fail {
@@ -216,7 +216,7 @@ button:hover {
 
 #update-list-button {
   float: right;
-  font-size: 12px;
+  font-size: 13px;
   margin: left;
   margin-right: 1%;
   padding: 1px 10px;
@@ -225,7 +225,7 @@ button:hover {
 
 /*email*/
 #email-description {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 #email-body-input, #email-subject-input {
