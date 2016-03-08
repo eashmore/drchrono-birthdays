@@ -134,6 +134,17 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+# Email
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = '	drchrono.birthday.reminder@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'drchronoreminder'
+
+EMAIL_PORT = 587
+
 # Heroku Production
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
