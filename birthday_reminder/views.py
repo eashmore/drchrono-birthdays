@@ -12,9 +12,12 @@ import requests
 from .models import Doctor, Patient
 
 def new_session_view(request):
-    return render(request, 'new_session.html')
+    return render(request, 'sessions/new_session.html')
 
 def auth_view(request):
+    if 'error' in request.GET:
+        return redirect('birthday_reminder:session_error')
+
     user = parse_drchrono_api(request.GET)
     auth_user = authenticate(
         username=user.username,
@@ -22,6 +25,9 @@ def auth_view(request):
     )
     login(request, auth_user)
     return redirect('birthday_reminder:root_view')
+
+def session_error_view(request):
+    return render(request, 'sessions/session_error.html')
 
 def logout_view(request):
     logout(request)
@@ -37,7 +43,7 @@ def root_view(request):
 
     return render(request, 'index.html', context)
 
-def email_view(request):
+def edit_email_view(request):
     user = request.user
     doctor = user.doctor
     context = {
@@ -46,7 +52,7 @@ def email_view(request):
         'email_body': doctor.email_body.format('Dr. ' + doctor.last_name)
     }
 
-    return render(request, 'email.html', context)
+    return render(request, 'doctors/email.html', context)
 
 # my api
 class DoctorView(generic.DetailView):
@@ -89,9 +95,6 @@ def parse_drchrono_api(code):
     return user
 
 def exchange_token(params):
-    if 'error' in params:
-        raise ValueError('Error authorizing application: %s' % params['error'])
-
     content = {
         'code': params['code'],
         'grant_type': 'authorization_code',

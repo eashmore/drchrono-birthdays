@@ -99,14 +99,14 @@ button:hover {
   border-top: 1px solid #f5f5f5;
 }
 
-.patient-first-name {
+.patient-last-name {
   display:inline-block;
   width: 18%;
   word-wrap: break-word;
   padding-left: 10px;
 }
 
-.patient-last-name {
+.patient-first-name {
   display:inline-block;
   width: 18%;
   word-wrap: break-word;
@@ -188,11 +188,12 @@ button:hover {
   left: 0;
   right: 0;
   text-align: center;
-  top: 50px;
+  top: 75px;
   background-color: #fcf8e3;
   border: 1px solid #faebcc;
-  padding: 5px 0px;
-  font-size: 25px;
+  padding: 15px 0px;
+  font-size: 30px;
+  opacity: 0.9;
 }
 
 #save-fail {

@@ -23,9 +23,17 @@ class Command(BaseCommand):
             return False
 
         def email_patient(doctor, patient):
-            subject = doctor.email_subject.replace('[first name]', patient.first_name).replace('[last name]', patient.last_name)
-            body = doctor.email_body.replace('[first name]', patient.first_name).replace('[last name]', patient.last_name)
-            send_mail(subject, body, 'drchrono.birthday.reminder@gmail.com', [patient.email], fail_silently=False)
+            subject = doctor.email_subject
+            subject = subject.replace('[first name]', patient.first_name)
+            subject = subject.replace('[last name]', patient.last_name)
+
+            body = doctor.email_body
+            body = body.replace('[first name]', patient.first_name)
+            body = body.replace('[last name]', patient.last_name)
+
+            send_mail(subject, body, 'drchrono.birthday.reminder@gmail.com',
+                      [patient.email], fail_silently=False
+                     )
 
         doctors = Doctor.objects.all()
         for doctor in doctors:
