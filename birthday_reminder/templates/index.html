@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Welcome {{doctor.first_name}}</h1>
+<h1>
+  Welcome {{doctor.first_name}}
+  <div id="username">You are logged in as <span class="bold app-color">{{username}}</span></div>
+</h1>
 <button id="email-all-button" type="button" name="button">
   <i class="fa fa-paper-plane"></i> Add all patients to birthday email list
 </button>

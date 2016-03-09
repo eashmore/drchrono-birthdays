@@ -45,7 +45,8 @@ def index_view(request):
     patients = Patient.objects.filter(doctor=doctor).order_by('last_name')
     context = {
         'doctor': doctor,
-        'patients': patients
+        'patients': patients,
+        'username': request.user.username
     }
 
     return render(request, 'index.html', context)

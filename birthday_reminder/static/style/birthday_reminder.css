@@ -27,6 +27,10 @@ body {
   text-align: center;
 }
 
+.app-color {
+  color: #42931F
+}
+
 button {
   color: #fff;
   padding: 5px 15px;
@@ -34,6 +38,7 @@ button {
   cursor: pointer;
   border-radius: 5px;
   border-width: 0px;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
   opacity: 0.8;
 }
 
@@ -59,8 +64,6 @@ button:hover {
   max-width: 900px;
 }
 
-#about-app {}
-
 #login-button {
   width: 220px;
   margin: auto;
@@ -80,6 +83,18 @@ button:hover {
   border: 1px solid darkgreen;
   opacity: 1.0;
   box-shadow: 0px 0px 3px #000;
+}
+
+.about-app {
+  display: inline-block;
+  width: 49%;
+  margin-top: 30px;
+  font-size: 20px;
+  vertical-align: top;
+}
+
+.about-app li {
+  margin-bottom: 20px;
 }
 
 /*patients list*/
@@ -157,7 +172,6 @@ button:hover {
 #update-list-button {
   float: right;
   font-size: 13px;
-  margin: left;
   margin-right: 1%;
   padding: 1px 10px;
   background-color: #364650;
@@ -180,6 +194,12 @@ button:hover {
   border: 0px;
   box-shadow: 0 1px 1px #ccc;
   padding: 10px;
+}
+
+#username {
+  font-size: 14px;
+  margin-left: 15px;
+  font-weight: 400;
 }
 
 /*save buttons and save results*/
@@ -279,6 +299,7 @@ button:hover {
   background-color: #5CB85C;
   top: 0;
   left: 0;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
 }
 
 #nav-left {
