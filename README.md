@@ -12,3 +12,6 @@ Technologies used to build this application include:
 * Python 2.7
 * Django 1.9
 * jQuery
+
+Additional Dependancies:
+* Requests

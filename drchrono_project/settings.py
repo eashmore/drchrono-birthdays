@@ -16,6 +16,18 @@ import dj_database_url
 # Url the drchrono api redirects to after authorization
 REDIRECT_URL = "http://localhost:8000/oauth/"
 
+# Email information
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = 'drchrono.birthdays@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'drchronobirthdays2015'
+
+EMAIL_PORT = 587
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -134,17 +146,6 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-# Email
-EMAIL_USE_TLS = True
-
-EMAIL_HOST = 'smtp.gmail.com'
-
-EMAIL_HOST_USER = 'drchrono.birthday.reminder@gmail.com'
-
-EMAIL_HOST_PASSWORD = 'drchronoreminder'
-
-EMAIL_PORT = 587
 
 # Heroku Production
 db_from_env = dj_database_url.config(conn_max_age=500)
