@@ -12,4 +12,3 @@ Technologies used to build this application include:
 
 * Django 1.9
 * jQuery
-* Kronos

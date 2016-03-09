@@ -223,14 +223,10 @@ button:hover {
 }
 
 .save-button[disabled] {
-  cursor: default;
-  color: #D3D3D3;
+  cursor: not-allowed;
+  color: #B5B5B5;
   background-color: #808080;
   opacity: 0.2;
-}
-.save-button[disabled]:hover {
-  opacity: 0.2;
-  box-shadow: 0px 0px 0px #000;
 }
 
 .center-screen {
