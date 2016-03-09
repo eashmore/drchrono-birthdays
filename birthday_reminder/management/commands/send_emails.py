@@ -3,7 +3,9 @@ from birthday_reminder.models import Doctor
 from django.core.mail import send_mass_mail
 
 import datetime
+import kronos
 
+@kronos.register('0 0 * * *')
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         def get_bday_emails(doctor):
