@@ -1,4 +1,22 @@
-<h1>Oh no, something went horribly wrong!</h1>
-You weren't supposed to see this page. NO ONE WAS SUPPOSED TO SEE THIS PAGE!<br>
-But don't panic, everything will be okay. You probably just hit the wrong button or forgot your drchrono password or... something.<br>
-You can always <a href="{% url 'birthday_reminder:login' %}">return to the sign in page and try again.</a>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="center-text">
+  <h1>Oh no, something went wrong!</h1>
+  <p>
+    Don't panic, everything will be okay! You can always
+    <a href="{% url 'birthday_reminder:login' %}">
+      return to the sign in page and try again.
+    </a>
+  </p>
+
+  <div id="login-button">
+    <a href="{% url 'birthday_reminder:login' %}">
+      <button type="button" name="button">
+        <i class="fa fa-arrow-circle-left fa-lg"></i> Back to sign in page
+      </button>
+    </a>
+  </div>
+</div>
+
+{% endblock %}

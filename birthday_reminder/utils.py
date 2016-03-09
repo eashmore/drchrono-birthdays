@@ -18,7 +18,7 @@ def update_instance(model, request_body):
 
     model.save()
 
-# Access drchrono api
+# Access drchrono API
 def get_drchrono_user(request_params):
     """
     Get user data from drchrono api and update user and patients rows in db

@@ -23,6 +23,10 @@ body {
   display: none;
 }
 
+.center-text {
+  text-align: center;
+}
+
 button {
   color: #fff;
   padding: 5px 15px;
@@ -237,7 +241,12 @@ button:hover {
   background-color: #309549;
   color: #fff;
   padding: 20px 0px;
+  padding-right: 70px;
   border-radius: 5px;
+}
+
+.loading-screen-content {
+  display: inline-block;
 }
 
 #save-success {
