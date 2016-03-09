@@ -32,13 +32,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'birthday_reminder.apps.BirthdayReminderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'birthday_reminder.apps.BirthdayReminderConfig',
     'kronos'
 ]
 

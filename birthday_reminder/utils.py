@@ -69,7 +69,6 @@ def save_user(doctor_data):
     user = User.objects.create_user(
         id=doctor_data['id'],
         username=doctor_data['username'],
-        password='',
     )
     doctor = Doctor(
         first_name=doctor_data['first_name'],
