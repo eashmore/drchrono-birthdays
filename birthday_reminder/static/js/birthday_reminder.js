@@ -4,7 +4,7 @@ function listenForPatientUpdate() {
   $updateListButton.on('click', displayLoadingScreen);
 
   var $patientList = $('#patient-list');
-  $patientList.on('change', 'input', markUserForUpdate);
+  $patientList.on('change', '.send-checkbox', markUserForUpdate);
 
   var $saveButton = $('#save-changes-button');
   $saveButton.on('click', getMarkedPatients);
@@ -55,33 +55,39 @@ function getMarkedPatients(e) {
 
 function saveChanges($patientsList, boolean) {
   $('#save-guard').removeClass('display-none');
-  var requests = [];
+  var putRequests = [];
   var isCheck = boolean;
   for (var i = 0; i < $patientsList.length; i++) {
+    var checkbox = $patientsList[i].querySelector('.send-checkbox');
     if (boolean === undefined) {
-      isCheck = isChecked($patientsList[i]);
+      isCheck = isChecked(checkbox);
+    } else {
+      updatePatientCheckbox(checkbox, isCheck);
     }
 
-    requests.push(buildPutRequest($patientsList[i], isCheck));
-    updatePatientElement($patientsList[i], isCheck);
+    putRequests.push(buildPutRequest($patientsList[i], isCheck));
+    $patientsList[i].classList.remove('changed');
   }
-  sendRequests(requests);
+  sendRequests(putRequests);
 }
 
 // Sends all ajax requests at once and runs callback after all are complete
 function sendRequests(requests) {
-  $.when.apply($, requests).then(function() {
-    $('#save-guard').addClass('display-none');
-    successSave();
-  }, function() {
-    $('#save-guard').addClass('display-none');
-    errorSave();
-  });
+  $.when.apply($, requests).then(
+    //Success
+    function() {
+      $('#save-guard').addClass('display-none');
+      successSave();
+    },
+    //Error
+    function() {
+      $('#save-guard').addClass('display-none');
+      errorSave();
+    });
 }
 
 // Check whether or not a marked patient should be sent an email after update
-function isChecked(patient) {
-  var checkbox = patient.querySelector('input');
+function isChecked(checkbox) {
   if (checkbox.checked) {
     return true;
   }
@@ -90,15 +96,12 @@ function isChecked(patient) {
 }
 
 // Updates patient DOM element to reflect changes from update
-function updatePatientElement(patient, bool) {
-  var checkbox = patient.querySelector('input');
-  if (bool) {
+function updatePatientCheckbox(checkbox, isCheck) {
+  if (isCheck) {
     checkbox.checked = true;
   } else {
     checkbox.checked = false;
   }
-
-  patient.classList.remove('changed');
 }
 
 function buildPutRequest(patient, bool) {
@@ -123,14 +126,13 @@ function saveEmail(e) {
   e.preventDefault();
   var saveButton = e.currentTarget;
   saveButton.disabled = true;
-  var $form = $(e.currentTarget.parentElement);
-  var data = $form.serialize();
+  var $form = $(saveButton.parentElement);
 
   var csrftoken = getCookie('csrftoken');
   $.ajax({
     url: '/api/doctor/' + $form.data('user-id') +'/',
     type: 'put',
-    data: data,
+    data: $form.serialize(),
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
     },

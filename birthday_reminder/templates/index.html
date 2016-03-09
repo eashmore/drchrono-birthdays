@@ -40,9 +40,9 @@
         <div class="patient-col col-birthday">{{ patient.birthday.date }}</div>
         <div class="patient-col col-send-check">
           {% if patient.send_email == True %}
-            <input type="checkbox" name="name" value="" checked>
+            <input class="send-checkbox" type="checkbox" checked>
           {% else %}
-            <input type="checkbox" name="name" value="">
+            <input class="send-checkbox" type="checkbox">
           {% endif %}
         </div>
       </div>
