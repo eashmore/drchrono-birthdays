@@ -5,6 +5,7 @@ import requests
 from drchrono_project.settings import REDIRECT_URL
 from models import Doctor, Patient
 
+#For PUT requests to API
 def update_instance(model, request_body):
     """
     Updates instance model with new data

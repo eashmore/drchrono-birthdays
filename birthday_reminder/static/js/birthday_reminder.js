@@ -1,34 +1,30 @@
 // Add listeners for patient updates
 function listenForPatientUpdate() {
   var $updateListButton = $('#update-list-button');
-  $updateListButton.on('click', displayLoading);
-
-  var $allPatientsButton = $('#email-all-button');
-  $allPatientsButton.on('click', toggleAllPatients);
-
-  var $noPatientsButton = $('#email-none-button');
-  $noPatientsButton.on('click', toggleAllPatients);
+  $updateListButton.on('click', displayLoadingScreen);
 
   var $patientList = $('#patient-list');
   $patientList.on('change', 'input', markUserForUpdate);
+
+  var $saveButton = $('#save-changes-button');
+  $saveButton.on('click', getMarkedPatients);
+
+  //Toggle email for all patients
+  var $allPatientsButton = $('#email-all-button');
+  $allPatientsButton.on('click', function(){
+    saveChanges($('.patient'), true);
+  });
+
+  var $noPatientsButton = $('#email-none-button');
+  $noPatientsButton.on('click', function(){
+    saveChanges($('.patient'), false);
+  });
 }
 
-function displayLoading() {
+function displayLoadingScreen() {
   $('#save-guard').removeClass('display-none');
   $('#save-guard').addClass('loading-guard');
   $('#loading-screen').removeClass('display-none');
-}
-
-// Update all patients
-function toggleAllPatients(e) {
-  e.preventDefault();
-  var sendAll = true;
-  if (e.currentTarget.id === 'email-none-button') {
-    sendAll = false;
-  }
-
-  var patients = $('.patient');
-  saveChanges(patients, sendAll);
 }
 
 function markUserForUpdate(e) {
@@ -47,12 +43,10 @@ function activateSaveButton() {
   if ($saveButton.attr('disabled')) {
     $saveButton.removeAttr('disabled');
     $saveButton.addClass('enabled-button');
-    $saveButton.on('click', getMarkedPatients);
   }
 }
 
 function getMarkedPatients(e) {
-  e.preventDefault();
   var saveButton = e.currentTarget;
   saveButton.disabled = true;
   var $changedPatients = $('#patient-list').find('.changed');

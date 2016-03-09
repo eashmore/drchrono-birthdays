@@ -17,8 +17,8 @@ def login_view(request):
 
 def oauth_view(request):
     """
-    Redirect from drchrono. Handles user login and updating db with new
-    drchrono data.
+    Redirect destination for drchrono. Handles user login and updating db with
+    new drchrono data.
     """
     if 'error' in request.GET:
         return redirect('birthday_reminder:login_error')
@@ -33,7 +33,7 @@ def oauth_view(request):
 
 def login_error_view(request):
     """
-    View if drchrono authentication fails
+    If drchrono authentication fails
     """
     return render(request, 'sessions/error.html')
 
