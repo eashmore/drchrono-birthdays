@@ -14,7 +14,7 @@ import os
 import dj_database_url
 
 # Url the drchrono api redirects to after authorization
-REDIRECT_URL = "https://drchronobirthdays.herokuapp.com/oauth/"
+REDIRECT_URL = "http://localhost:8000/oauth/"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
