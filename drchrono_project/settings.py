@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 import dj_database_url
 
-redirect_url = "http://localhost:8000/oauth/"
+# Url the drchrono api redirects to after authorization
+REDIRECT_URL = "http://localhost:8000/oauth/"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

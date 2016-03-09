@@ -4,17 +4,17 @@ from django.contrib.auth.models import User
 import string
 import random
 
-default_email_subject = "Happy birthday from Dr. {0}"
-default_email_message = "Dear [first name] [last name],\n\nHappy birthday!\n\nSincerely,\nDr. {0}"
+EMAIL_SUBJECT = "Happy birthday from Dr. {0}"
+EMAIL_MESSAGE = "Dear [first name] [last name],\n\nHappy birthday!\n\nSincerely,\nDr. {0}"
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
     email_subject = models.CharField(
-        max_length=256, default=default_email_subject
+        max_length=256, default=EMAIL_SUBJECT
     )
-    email_body = models.TextField(default=default_email_message)
+    email_body = models.TextField(default=EMAIL_MESSAGE)
 
     def __str__(self):
         return self.last_name
