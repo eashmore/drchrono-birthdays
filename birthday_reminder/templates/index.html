@@ -39,7 +39,7 @@
         <div class="patient-col col-email">{{ patient.email }}</div>
         <div class="patient-col col-birthday">{{ patient.birthday.date }}</div>
         <div class="patient-col col-send-check">
-          {% if patient.email_bool == True %}
+          {% if patient.send_email == True %}
             <input type="checkbox" name="name" value="" checked>
           {% else %}
             <input type="checkbox" name="name" value="">

@@ -112,7 +112,7 @@ function buildPutRequest(patient, bool) {
   return $.ajax({
     url: 'api/patient/' + patient.dataset.patient + '/',
     type: 'put',
-    data: {'email_bool': bool},
+    data: {'send_email': bool},
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
     }

@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         def get_bday_emails(doctor):
             emails = []
-            patient_set = doctor.patient_set.filter(email_bool=True)
+            patient_set = doctor.patient_set.filter(send_email=True)
             for patient in patient_set.all():
                 if is_birthday(patient):
                     message = (generate_email(doctor, patient))

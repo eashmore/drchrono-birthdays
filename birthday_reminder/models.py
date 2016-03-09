@@ -33,7 +33,7 @@ class Patient(models.Model):
     last_name = models.CharField(max_length=256)
     email = models.CharField(max_length=256)
     birthday = models.DateTimeField()
-    email_bool = models.BooleanField(default=False)
+    send_email = models.BooleanField(default=False)
 
     def __str__(self):
         return self.email
