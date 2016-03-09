@@ -33,11 +33,11 @@ function toggleAllPatients(e) {
 
 function markUserForUpdate(e) {
   var checkbox = e.currentTarget;
-  var patientEl = checkbox.parentNode.parentNode;
-  if (patientEl.classList.contains('changed')) {
-    patientEl.classList.remove('changed');
+  var patientElement = checkbox.parentNode.parentNode;
+  if (patientElement.classList.contains('changed')) {
+    patientElement.classList.remove('changed');
   } else {
-    patientEl.classList.add('changed');
+    patientElement.classList.add('changed');
   }
   activateSaveButton();
 }

@@ -1,12 +1,11 @@
 from __future__ import unicode_literals
-from django.contrib.auth.models import User
 from django.db import models
-
+from django.contrib.auth.models import User
 import string
 import random
 
-default_email_message = "Dear [first name] [last name],\n\nHappy birthday!\n\nSincerely,\nDr. {0}"
 default_email_subject = "Happy birthday from Dr. {0}"
+default_email_message = "Dear [first name] [last name],\n\nHappy birthday!\n\nSincerely,\nDr. {0}"
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
