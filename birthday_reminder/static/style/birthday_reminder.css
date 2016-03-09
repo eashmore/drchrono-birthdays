@@ -97,6 +97,13 @@ button:hover {
   margin-bottom: 20px;
 }
 
+/*home page*/
+#username {
+  font-size: 14px;
+  margin-left: 15px;
+  font-weight: 400;
+}
+
 /*patients list*/
 #patient-table {
   background-color: #fff;
@@ -196,12 +203,6 @@ button:hover {
   padding: 10px;
 }
 
-#username {
-  font-size: 14px;
-  margin-left: 15px;
-  font-weight: 400;
-}
-
 /*save buttons and save results*/
 #email-all-button, #email-none-button  {
   width: 360px;
@@ -227,6 +228,10 @@ button:hover {
   color: #B5B5B5;
   background-color: #808080;
   opacity: 0.2;
+}
+
+.save-button[disabled]:hover {
+  box-shadow: 0px 0px 0px #000;
 }
 
 .center-screen {
@@ -345,16 +350,12 @@ button:hover {
 
 #drchrono-nav-text {
   position: relative;
-  top: -5px;
+  bottom: 5px;
 }
 
 /*responsive*/
 @media (max-width: 920px) {
-  #to-drchrono {
-    display: none;
-  }
-
-  #nav-patients, #sign-out {
+  #nav-patients, #sign-out, #to-drchrono {
     width: 125px;
   }
 
