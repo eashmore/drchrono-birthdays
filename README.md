@@ -1,10 +1,10 @@
-# drchrono Birthday Reminder
+# drchrono Birthdays
 
 [Live link][link]
 
-[link]: https://drchrono-bday-reminder.herokuapp.com/
+[link]: https://drchronobirthdays.herokuapp.com/
 
-drchrono Birthday Reminder is a Django app for sending emails to patients on their birthday. drchrono Birthday Reminder integrates with [drchrono][drchrono] to consume a user's patients through the drchrono API.
+drchrono Birthdays is a Django app for sending emails to patients on their birthday. drchrono Birthdays integrates with [drchrono][drchrono] to consume a user's patients through the drchrono API.
 
 [drchrono]: https://www.drchrono.com/
 
