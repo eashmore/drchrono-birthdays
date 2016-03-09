@@ -25,20 +25,20 @@
 
 <div id="patient-table">
   <div id="patient-table-head" class="bold">
-    <div class="patient-last-name">Last Name</div>
-    <div class="patient-first-name">First Name</div>
-    <div class="patient-email">Email</div>
-    <div class="patient-birthday">Birthday</div>
-    <div class="patient-send-check">Send Email?</div>
+    <div class="patient-col col-last-name">Last Name</div>
+    <div class="patient-col col-first-name">First Name</div>
+    <div class="patient-col col-email">Email</div>
+    <div class="patient-col col-birthday">Birthday</div>
+    <div class="patient-col col-send-check">Send Email?</div>
   </div>
   <div id="patient-list">
     {% for patient in patients %}
       <div class="patient" data-patient="{{patient.id}}">
-        <div class="patient-last-name">{{ patient.last_name }}</div>
-        <div class="patient-first-name">{{ patient.first_name }}</div>
-        <div class="patient-email">{{ patient.email }}</div>
-        <div class="patient-birthday">{{ patient.birthday.date }}</div>
-        <div class="patient-send-check">
+        <div class="patient-col col-last-name">{{ patient.last_name }}</div>
+        <div class="patient-col col-first-name">{{ patient.first_name }}</div>
+        <div class="patient-col col-email">{{ patient.email }}</div>
+        <div class="patient-col col-birthday">{{ patient.birthday.date }}</div>
+        <div class="patient-col col-send-check">
           {% if patient.email_bool == True %}
             <input type="checkbox" name="name" value="" checked>
           {% else %}
