@@ -15,3 +15,8 @@ Technologies used to build this application include:
 
 Additional Dependancies:
 * Requests
+
+Additional Notes:
+* The `send_emails` command should be run daily to ensure all patients receive their birthday emails on the correct day. Run command with:
+`python manage.py send_emails`
+* When run locally, drchrono Birthdays can only access the drchrono API if the server is run on localhost:8000.
