@@ -11,11 +11,12 @@ def update_instance(model, request_body):
     """
     data = QueryDict(request_body)
     for key in data:
-        value = data[key]
-        if value == 'false':
-            value = False
+        if hasattr(model, key):
+            value = data[key]
+            if value == 'false':
+                value = False
 
-        setattr(model, key, value)
+            setattr(model, key, value)
 
     model.save()
 
