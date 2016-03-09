@@ -2,6 +2,7 @@ from django.http import QueryDict
 from django.contrib.auth.models import User
 import requests
 
+from drchrono_project.settings import redirect_url
 from models import Doctor, Patient
 
 def update_instance(model, request_body):
@@ -36,7 +37,7 @@ def exchange_token(params):
     content = {
         'code': params['code'],
         'grant_type': 'authorization_code',
-        'redirect_uri': 'https://drchronobirthdays.herokuapp.com/oauth/',
+        'redirect_uri': redirect_url,
         'client_id': 'g9fTx7H3gXlnZOA2SeoPmE4NV1MIh5yU4lOoxmX4',
         'client_secret': 'Kf82PCpQCpvYEkMcoWI5HH5TDaV09cVcG4IBiW7xCgZqvrm6HyEqld6P4DjU6IG3xRQn0weD1MmODkOQpLXEjiMrJ19XC9IiogwVczQWZVhWRzgEFbPf4VqqtALtNsCc',
     }

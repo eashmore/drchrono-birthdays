@@ -1,15 +1,19 @@
 from django.core import serializers
 from django.views import generic
 from django.http import HttpResponse
+from django.utils.http import urlquote
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
+from drchrono_project.settings import redirect_url
 from models import Doctor, Patient
 from utils import get_drchrono_user, update_instance
 
 def login_view(request):
-    return render(request, 'sessions/login.html')
+    return render(request, 'sessions/login.html', context={
+        'redirect_url': urlquote(redirect_url)
+    })
 
 def oauth_view(request):
     """
@@ -43,10 +47,12 @@ def index_view(request):
     """
     doctor = request.user.doctor
     patients = Patient.objects.filter(doctor=doctor).order_by('last_name')
+    patient_update_url = urlquote(redirect_url)
     context = {
         'doctor': doctor,
         'patients': patients,
-        'username': request.user.username
+        'username': request.user.username,
+        'redirect_url': patient_update_url
     }
 
     return render(request, 'index.html', context)
