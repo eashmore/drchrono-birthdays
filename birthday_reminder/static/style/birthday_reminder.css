@@ -101,6 +101,7 @@ button:hover {
 #patient-table {
   background-color: #fff;
   border-radius: 3px;
+  border: 1px solid #D3D3D3
 }
 
 #patient-table-label {
@@ -113,11 +114,13 @@ button:hover {
   background-color: #696f7d;
   color: #fff;
   padding-left: 5px;
+  border: 1px solid #474B54;
 }
 
 #patient-list {
   overflow-y: scroll;
   max-height: 80%;
+  margin-right: 1px
 }
 
 #patient-table-head {
