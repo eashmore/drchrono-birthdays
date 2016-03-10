@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import dj_database_url
-from secret_settings import CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, EMAIL_PASSWORD
+from secret_settings import CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, EMAIL_PASSWORD, KEY
 
 # Client data for drchrono api authorization
 CLIENT_DATA = {
@@ -20,7 +20,6 @@ CLIENT_DATA = {
     'client_secret': CLIENT_SECRET,
     'redirect_url': REDIRECT_URL
 }
-
 
 # Email information
 EMAIL_USE_TLS = True
@@ -41,7 +40,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '73wsb1&!*@%fu4k5n23h@l0s8p_m!0@bv(g^otpx)&ov&(143c'
+SECRET_KEY = KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
