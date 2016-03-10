@@ -18,7 +18,7 @@ Additional Dependancies:
 		CLIENT_DATA = {
     		'client_id': Client ID,
 			'client_secret': Client Secret,
-    		'redirect_url': "http://your_site.com/oauth"
+    		'redirect_url': "http://www.yourwebsite.com/oauth"
 		}
 
 * The `send_emails` command should be run daily to ensure all patients receive their birthday emails on the correct day.<br>
@@ -32,9 +32,9 @@ Run command with:
 
 		EMAIL_HOST = 'smtp.gmail.com'
 
-		EMAIL_HOST_USER = 'your_email@gmail.com'
+		EMAIL_HOST_USER = 'youremail@gmail.com'
 
-		EMAIL_HOST_PASSWORD = your_password
+		EMAIL_HOST_PASSWORD = Email Password
 
 		EMAIL_PORT = 587
 
