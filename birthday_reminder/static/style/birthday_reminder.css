@@ -122,7 +122,7 @@ button:hover {
   overflow-y: scroll;
   max-height: 60%;
   border-top: 1px solid #D3D3D3;
-  border-radius: 3px;
+  border-radius: 0px 0px 3px 3px;
 }
 
 #patient-table-head {
