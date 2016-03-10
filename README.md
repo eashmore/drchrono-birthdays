@@ -13,16 +13,17 @@ Additional Dependancies:
 * Requests
 
 **Additional Notes:**
-* The `send_emails` command should be run daily to ensure all patients receive their birthday emails on the correct day.<br>
-Run command with: `python manage.py send_emails`
 * When run locally, you can use you're drchrono client information by setting `CLIENT_DATA` in `settings.py`.
 
 		CLIENT_DATA = {
     		'client_id': client id,
-			'client_secret': client secret',
-    		'redirect_url': "http://your_site.com/handle_authentication"
+				'client_secret': client secret',
+    		'redirect_url': "http://your_site.com/oauth"
 		}
-		
+
+* The `send_emails` command should be run daily to ensure all patients receive their birthday emails on the correct day.<br>
+Run command with: `python manage.py send_emails`
+
 * You can use an email address of your choice my setting `EMAIL` information in `settings.py`. An example for a _gmail_ account:
 
 		EMAIL_USE_TLS = True
