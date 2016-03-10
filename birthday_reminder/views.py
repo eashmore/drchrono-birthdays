@@ -6,13 +6,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
-from drchrono_project.settings import REDIRECT_URL
+from drchrono_project.settings import CLIENT_DATA
 from models import Doctor, Patient
 from utils import get_drchrono_user, update_instance
 
 def login_view(request):
     return render(request, 'sessions/login.html', context={
-        'redirect_url': urlquote(REDIRECT_URL)
+        'redirect_url': urlquote(CLIENT_DATA['redirect_url']),
+        'client_id': CLIENT_DATA['client_id']
     })
 
 def oauth_view(request):
@@ -47,12 +48,12 @@ def index_view(request):
     """
     doctor = request.user.doctor
     patients = Patient.objects.filter(doctor=doctor).order_by('last_name')
-    patient_update_url = urlquote(REDIRECT_URL)
     context = {
         'doctor': doctor,
         'patients': patients,
         'username': request.user.username,
-        'redirect_url': patient_update_url
+        'redirect_url': urlquote(CLIENT_DATA['redirect_url']),
+        'client_id': CLIENT_DATA['client_id']
     }
 
     return render(request, 'index.html', context)

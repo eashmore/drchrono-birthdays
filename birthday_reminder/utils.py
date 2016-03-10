@@ -2,7 +2,7 @@ from django.http import QueryDict
 from django.contrib.auth.models import User
 import requests
 
-from drchrono_project.settings import REDIRECT_URL
+from drchrono_project.settings import CLIENT_DATA
 from models import Doctor, Patient
 
 #For PUT requests to API
@@ -39,9 +39,9 @@ def exchange_token(params):
     content = {
         'code': params['code'],
         'grant_type': 'authorization_code',
-        'redirect_uri': REDIRECT_URL,
-        'client_id': 'g9fTx7H3gXlnZOA2SeoPmE4NV1MIh5yU4lOoxmX4',
-        'client_secret': 'Kf82PCpQCpvYEkMcoWI5HH5TDaV09cVcG4IBiW7xCgZqvrm6HyEqld6P4DjU6IG3xRQn0weD1MmODkOQpLXEjiMrJ19XC9IiogwVczQWZVhWRzgEFbPf4VqqtALtNsCc',
+        'redirect_uri': CLIENT_DATA['redirect_url'],
+        'client_id': CLIENT_DATA['client_id'],
+        'client_secret': CLIENT_DATA['client_secret'],
     }
     response = requests.post('https://drchrono.com/o/token/', content)
     response.raise_for_status()

@@ -13,8 +13,13 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 import dj_database_url
 
-# Url the drchrono api redirects to after authorization
-REDIRECT_URL = "http://localhost:8000/oauth/"
+# Client data for drchrono api authorization
+CLIENT_DATA = {
+    'client_id': 'ciT3PrcWuOup57x8VcoHmPssHnl7O0vSIFT0xItC',
+    'client_secret': 'FFhGRzQOG7meo89YaOkXGGRdBfknxRE1w5KKRMbLPJBwUXlJQ6I8aVwzMA3mlTSqCo0wFZ8ABBoCSdv0SVmokkFnezIj7H7oD11LRT3EDQcbhjf2rKtv6jlfz96tmDpF',
+    'redirect_url': "http://localhost:8000/oauth/"
+}
+
 
 # Email information
 EMAIL_USE_TLS = True
