@@ -3,10 +3,8 @@ colorama==0.3.6
 dj-database-url==0.4.0
 Django==1.9.3
 django-braces==1.8.1
-django-oauth-toolkit==0.10.0
 gunicorn==19.4.5
 lazy-object-proxy==1.2.1
-oauthlib==1.0.3
 psycopg2==2.6.1
 python-dateutil==2.5.0
 pytz==2015.7
