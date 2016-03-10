@@ -16,8 +16,8 @@ Additional Dependancies:
 * You can use your drchrono client information by setting `CLIENT_DATA` in `settings.py`.
 
 		CLIENT_DATA = {
-    		'client_id': client id,
-			'client_secret': client secret',
+    		'client_id': Client ID,
+			'client_secret': Client Secret,
     		'redirect_url': "http://your_site.com/oauth"
 		}
 
