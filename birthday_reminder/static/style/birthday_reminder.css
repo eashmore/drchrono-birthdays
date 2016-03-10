@@ -126,7 +126,9 @@ button:hover {
 }
 
 #patient-table-head {
-  padding: 4px 0px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 15px;
   border-radius: 3px 3px 0px 0px;
 }
 
@@ -146,7 +148,7 @@ button:hover {
 }
 
 .col-last-name {
-  width: 18%;
+  width: 20%;
   padding-left: 10px;
 }
 
@@ -155,20 +157,20 @@ button:hover {
 }
 
 .col-email {
-  width: 25%;
+  width: 30%;
 }
 
 .col-birthday {
-  width: 20%;
+  width: 15%;
 }
 
 .col-send-check {
-  width: 12%;
+  width: 10%;
 }
 
 .send-checkbox {
   position: relative;
-  left: 33%;
+  left: 30%;
   bottom: 2px;
 }
 
@@ -313,7 +315,7 @@ button:hover {
 }
 
 .nav-link {
-  width: 225px;
+  width: 200px;
   text-align: center;
   height: inherit;
   background-color: #55B914;
@@ -355,8 +357,16 @@ button:hover {
 
 /*responsive*/
 @media (max-width: 920px) {
-  #nav-patients, #sign-out, #to-drchrono {
+  #nav-patients, #to-drchrono {
     width: 125px;
+  }
+
+  #nav-email {
+    width: 165px;
+  }
+
+  #sign-out {
+    width: 100px;
   }
 
   .email-input {
