@@ -166,9 +166,9 @@ button:hover {
   width: 12%;
 }
 
-.col-send-check>input {
+.send-checkbox {
   position: relative;
-  left: 25%;
+  left: 33%;
   bottom: 2px;
 }
 
