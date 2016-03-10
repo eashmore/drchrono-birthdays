@@ -17,7 +17,7 @@ Additional Dependancies:
 
 		CLIENT_DATA = {
     		'client_id': client id,
-				'client_secret': client secret',
+			'client_secret': client secret',
     		'redirect_url': "http://your_site.com/oauth"
 		}
 
