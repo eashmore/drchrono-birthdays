@@ -8,7 +8,6 @@ drchrono Birthdays is a Django app for sending emails to patients on their birth
 * Python 2.7
 * Django 1.9
 * jQuery
-* PostgreSQL
 
 Additional Dependancies:
 * Requests

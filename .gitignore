@@ -1,2 +1,3 @@
 *.pyc
 drchrono_project/secret_settings.py
+db.sqlite3
