@@ -8,6 +8,7 @@ drchrono Birthdays is a Django app for sending emails to patients on their birth
 * Python 2.7
 * Django 1.9
 * jQuery
+* PostgreSQL
 
 Additional Dependancies:
 * Requests
@@ -38,6 +39,6 @@ Run command with:
 
 		EMAIL_PORT = 587
 
-[logo]: ./birthday_reminder/static/images/drchrono-lg.png
+[logo]: ./drchrono_birthdays/static/images/drchrono-lg.png
 [link]: https://drchronobirthdays.herokuapp.com/
 [drchrono]: https://www.drchrono.com/

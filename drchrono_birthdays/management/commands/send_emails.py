@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from birthday_reminder.models import Doctor
+from drchrono_birthdays.models import Doctor
 from django.core.mail import send_mass_mail
 
 import datetime

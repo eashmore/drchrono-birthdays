@@ -22,7 +22,7 @@ def oauth_view(request):
     new drchrono data.
     """
     if 'error' in request.GET:
-        return redirect('birthday_reminder:login_error')
+        return redirect('drchrono_birthdays:login_error')
 
     user = get_drchrono_user(request.GET)
     auth_user = authenticate(
@@ -30,7 +30,7 @@ def oauth_view(request):
         password=user.doctor.set_random_password()
     )
     login(request, auth_user)
-    return redirect('birthday_reminder:index_view')
+    return redirect('drchrono_birthdays:index_view')
 
 def login_error_view(request):
     """
@@ -40,7 +40,7 @@ def login_error_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('birthday_reminder:index_view')
+    return redirect('drchrono_birthdays:index_view')
 
 def index_view(request):
     """

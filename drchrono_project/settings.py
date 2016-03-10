@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'birthday_reminder.apps.BirthdayReminderConfig',
+    'drchrono_birthdays.apps.DrchronoBirthdaysConfig',
 ]
 
 MIDDLEWARE_CLASSES = [

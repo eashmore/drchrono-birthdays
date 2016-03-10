@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0007_alter_validators_add_error_messages'),
-        ('birthday_reminder', '0001_initial'),
+        ('drchrono_birthdays', '0001_initial'),
     ]
 
     operations = [

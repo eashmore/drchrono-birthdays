@@ -3,5 +3,5 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class BirthdayReminderConfig(AppConfig):
-    name = 'birthday_reminder'
+class DrchronoBirthdaysConfig(AppConfig):
+    name = 'drchrono_birthdays'

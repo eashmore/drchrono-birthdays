@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from . import views
 
-app_name = 'birthday_reminder'
+app_name = 'drchrono_birthdays'
 urlpatterns = [
     url(r'^accounts/login/$', views.login_view, name='login'),
     url(r'^accounts/error/$', views.login_error_view, name='login_error'),
