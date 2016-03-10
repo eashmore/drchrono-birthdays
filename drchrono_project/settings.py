@@ -12,12 +12,13 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import dj_database_url
+from secret_settings import CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, EMAIL_PASSWORD
 
 # Client data for drchrono api authorization
 CLIENT_DATA = {
-    'client_id': 'ciT3PrcWuOup57x8VcoHmPssHnl7O0vSIFT0xItC',
-    'client_secret': 'FFhGRzQOG7meo89YaOkXGGRdBfknxRE1w5KKRMbLPJBwUXlJQ6I8aVwzMA3mlTSqCo0wFZ8ABBoCSdv0SVmokkFnezIj7H7oD11LRT3EDQcbhjf2rKtv6jlfz96tmDpF',
-    'redirect_url': "http://localhost:8000/oauth/"
+    'client_id': CLIENT_ID,
+    'client_secret': CLIENT_SECRET,
+    'redirect_url': REDIRECT_URL
 }
 
 
@@ -28,7 +29,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 
 EMAIL_HOST_USER = 'drchrono.birthdays@gmail.com'
 
-EMAIL_HOST_PASSWORD = 'drchronobirthdays2015'
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 
 EMAIL_PORT = 587
 
