@@ -1,25 +1,8 @@
-from django.http import QueryDict
 from django.contrib.auth.models import User
 import requests
 
 from drchrono_project.settings import CLIENT_DATA
 from models import Doctor, Patient
-
-#For PUT requests to API
-def update_instance(model, request_body):
-    """
-    Updates instance model with new data
-    """
-    data = QueryDict(request_body)
-    for key in data:
-        if hasattr(model, key):
-            value = data[key]
-            if value == 'false':
-                value = False
-
-            setattr(model, key, value)
-
-    model.save()
 
 # Access drchrono API
 def get_drchrono_user(request_params):
