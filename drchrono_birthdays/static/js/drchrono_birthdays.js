@@ -169,7 +169,7 @@ function getResults(e) {
     type: 'POST',
     url: '/patient_search/',
     data: {
-      'query': e.currentTarget.value
+      'queryString': e.currentTarget.value
     },
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
