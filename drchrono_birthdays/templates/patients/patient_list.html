@@ -1,0 +1,15 @@
+{% for patient in patients %}
+  <div class="patient" data-patient="{{patient.id}}">
+    <div class="patient-col col-last-name">{{ patient.last_name }}</div>
+    <div class="patient-col col-first-name">{{ patient.first_name }}</div>
+    <div class="patient-col col-email">{{ patient.email }}</div>
+    <div class="patient-col col-birthday">{{ patient.birthday.date }}</div>
+    <div class="patient-col col-send-check">
+      {% if patient.send_email == True %}
+        <input class="send-checkbox" type="checkbox" checked>
+      {% else %}
+        <input class="send-checkbox" type="checkbox">
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}

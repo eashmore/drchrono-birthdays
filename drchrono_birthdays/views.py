@@ -5,6 +5,7 @@ from django.utils.http import urlquote
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from drchrono_project.settings import CLIENT_DATA
 from models import Doctor, Patient
@@ -68,6 +69,18 @@ def edit_email_view(request):
     }
 
     return render(request, 'doctors/email.html', context)
+
+def patient_search_view(request):
+    if request.method == 'POST':
+        patients = Patient.objects.filter(doctor=request.user.doctor)
+        query = request.POST['query']
+        patients = patients.filter(
+            Q(last_name__contains=query) |
+            Q(first_name__contains=query) |
+            Q(email__contains=query)
+        )
+
+    return render(request, 'patients/patient_list.html', {'patients': patients})
 
 # My API
 class DoctorView(generic.DetailView):

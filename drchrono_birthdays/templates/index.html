@@ -22,6 +22,9 @@
     </button>
   </a>
 </div>
+<input id="search-bar" type="text" name="search-query" value=""
+  placeholder="Search patient's by name or email"
+>
 
 <div id="patient-table-head" class="table-content bold">
   <div class="patient-col col-last-name">Last Name</div>
@@ -31,21 +34,7 @@
   <div class="patient-col col-send-check">Send Email?</div>
 </div>
 <div id="patient-list" class="table-content">
-  {% for patient in patients %}
-    <div class="patient" data-patient="{{patient.id}}">
-      <div class="patient-col col-last-name">{{ patient.last_name }}</div>
-      <div class="patient-col col-first-name">{{ patient.first_name }}</div>
-      <div class="patient-col col-email">{{ patient.email }}</div>
-      <div class="patient-col col-birthday">{{ patient.birthday.date }}</div>
-      <div class="patient-col col-send-check">
-        {% if patient.send_email == True %}
-          <input class="send-checkbox" type="checkbox" checked>
-        {% else %}
-          <input class="send-checkbox" type="checkbox">
-        {% endif %}
-      </div>
-    </div>
-  {% endfor %}
+  {% include 'patients/patient_list.html' %}
 </div>
 <button id="save-changes-button" class="save-button"
   type="button" name="button" disabled

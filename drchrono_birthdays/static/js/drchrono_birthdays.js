@@ -1,22 +1,17 @@
 // Add listeners for patient updates
 function listenForPatientUpdate() {
-  var $updateListButton = $('#update-list-button');
-  $updateListButton.on('click', displayLoadingScreen);
+  $('#update-list-button').on('click', displayLoadingScreen);
 
-  var $patientList = $('#patient-list');
-  $patientList.on('change', '.send-checkbox', markUserForUpdate);
+  $('#patient-list').on('change', '.send-checkbox', markUserForUpdate);
 
-  var $saveButton = $('#save-changes-button');
-  $saveButton.on('click', getMarkedPatients);
+  $('#save-changes-button').on('click', getMarkedPatients);
 
   //Toggle email for all patients
-  var $allPatientsButton = $('#email-all-button');
-  $allPatientsButton.on('click', function(){
+  $('#email-all-button').on('click', function(){
     saveChanges($('.patient'), true);
   });
 
-  var $noPatientsButton = $('#email-none-button');
-  $noPatientsButton.on('click', function(){
+  $('#email-none-button').on('click', function(){
     saveChanges($('.patient'), false);
   });
 }
@@ -118,8 +113,7 @@ function buildPutRequest(patient, bool) {
 
 // Add listener for doctor email updates
 function listenForEmailUpdate() {
-  var $button = $('#save-email-button');
-  $button.on('click', saveEmail);
+  $('#save-email-button').on('click', saveEmail);
 }
 
 function saveEmail(e) {
@@ -165,6 +159,30 @@ function showSaveResult(saveStatus) {
   }, 1500);
 }
 
+function listenForPatientSearch() {
+  $('#search-bar').on('keyup', getResults);
+}
+
+function getResults(e) {
+  var csrftoken = getCookie('csrftoken');
+  $.ajax({
+    type: 'POST',
+    url: '/patient_search/',
+    data: {
+      'query': e.currentTarget.value
+    },
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    },
+    dataType: 'html',
+    success: updateInput
+  });
+}
+
+function updateInput(data) {
+  $('#patient-list').html(data);
+}
+
 // From Django docs https://docs.djangoproject.com/en/1.9/ref/csrf/
 function getCookie(name) {
     var cookieValue = null;
@@ -186,4 +204,5 @@ function getCookie(name) {
 (function() {
   listenForPatientUpdate();
   listenForEmailUpdate();
+  listenForPatientSearch();
 })();
