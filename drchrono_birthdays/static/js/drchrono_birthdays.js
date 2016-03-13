@@ -102,7 +102,7 @@ function buildPutRequest(patient, bool) {
   var csrftoken = getCookie('csrftoken');
   return $.ajax({
     url: 'api/patient/' + patient.dataset.patient + '/',
-    type: 'put',
+    type: 'PUT',
     data: {'send_email': bool},
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -166,7 +166,7 @@ function getResults(e) {
   var csrftoken = getCookie('csrftoken');
   $.ajax({
     type: 'POST',
-    url: '/patient_search/',
+    url: '/patient-search/',
     data: {
       'queryString': e.currentTarget.value
     },
@@ -178,8 +178,8 @@ function getResults(e) {
   });
 }
 
-function updateInput(data) {
-  $('#patient-list').html(data);
+function updateInput(patientsTemplate) {
+  $('#patient-list').html(patientsTemplate);
 }
 
 // From Django docs https://docs.djangoproject.com/en/1.9/ref/csrf/
