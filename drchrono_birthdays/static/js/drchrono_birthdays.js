@@ -1,17 +1,17 @@
 // Add listeners for patient updates
 function listenForPatientUpdate() {
-  $('#update-list-button').on('click', displayLoadingScreen);
+  $('#update-list-button').click(displayLoadingScreen);
 
   $('#patient-list').on('change', '.send-checkbox', markUserForUpdate);
 
-  $('#save-changes-button').on('click', getMarkedPatients);
+  $('#save-changes-button').click(getMarkedPatients);
 
   //Toggle email for all patients
-  $('#email-all-button').on('click', function(){
+  $('#email-all-button').click(function(){
     saveChanges($('.patient'), true);
   });
 
-  $('#email-none-button').on('click', function(){
+  $('#email-none-button').click(function(){
     saveChanges($('.patient'), false);
   });
 }
@@ -42,8 +42,7 @@ function activateSaveButton() {
 }
 
 function getMarkedPatients(e) {
-  var saveButton = e.currentTarget;
-  saveButton.disabled = true;
+  e.currentTarget.disabled = true;
   var $changedPatients = $('#patient-list').find('.changed');
   saveChanges($changedPatients);
 }
@@ -113,7 +112,7 @@ function buildPutRequest(patient, bool) {
 
 // Add listener for doctor email updates
 function listenForEmailUpdate() {
-  $('#save-email-button').on('click', saveEmail);
+  $('#save-email-button').click(saveEmail);
 }
 
 function saveEmail(e) {
@@ -160,7 +159,7 @@ function showSaveResult(saveStatus) {
 }
 
 function listenForPatientSearch() {
-  $('#search-bar').on('keyup', getResults);
+  $('#search-bar').keyup(getResults);
 }
 
 function getResults(e) {
