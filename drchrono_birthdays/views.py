@@ -48,7 +48,7 @@ def index_view(request):
     Landing page after login
     """
     doctor = request.user.doctor
-    patients = doctor.patient_set.order_by('last_name')
+    patients = doctor.patient_set.all()
     context = {
         'doctor': doctor,
         'patients': patients,
@@ -71,8 +71,8 @@ def edit_email_view(request):
     return render(request, 'doctors/email.html', context)
 
 def patient_search_view(request):
-    if request.method == 'POST':
-        patients = request.user.doctor.patient_set
+    patients = request.user.doctor.patient_set.all()
+    if request.method == 'POST' and request.POST['queryString']:
         query_string = request.POST['queryString']
         patients = patients.filter(
             Q(last_name__contains=query_string) |

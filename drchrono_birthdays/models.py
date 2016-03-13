@@ -35,5 +35,8 @@ class Patient(models.Model):
     birthday = models.DateTimeField()
     send_email = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['last_name']
+
     def __str__(self):
         return self.email
