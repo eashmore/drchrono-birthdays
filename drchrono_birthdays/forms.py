@@ -7,7 +7,7 @@ class EmailForm(forms.ModelForm):
         model = Doctor
         fields = ['email_subject', 'email_body']
 
-class SendEmailForm(forms.ModelForm):
+class PatientForm(forms.ModelForm):
 
     class Meta:
         model = Patient

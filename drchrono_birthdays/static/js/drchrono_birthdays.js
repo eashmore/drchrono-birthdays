@@ -133,7 +133,8 @@ function saveEmail(e) {
       saveButton.disabled = false;
       successSave();
     },
-    error: function() {
+    error: function(e) {
+      console.log(e);
       saveButton.disabled = false;
       errorSave();
     }

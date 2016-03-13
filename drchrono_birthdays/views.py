@@ -10,7 +10,7 @@ from django.db.models import Q
 from drchrono_project.settings import CLIENT_DATA
 from models import Doctor, Patient
 from utils import get_drchrono_user
-from forms import EmailForm, SendEmailForm
+from forms import EmailForm, PatientForm
 
 def login_view(request):
     return render(request, 'sessions/login.html', context={
@@ -93,9 +93,10 @@ class DoctorView(generic.DetailView):
         form = EmailForm(data, instance=doctor)
         if form.is_valid():
             form.save()
+            doctorJSON = serializers.serialize("json", [doctor])
+            return HttpResponse(doctorJSON, content_type='application/json')
 
-        doctorJSON = serializers.serialize("json", [doctor])
-        return HttpResponse(doctorJSON, content_type='application/json')
+        return HttpResponse(status=500)
 
 class PatientView(generic.DetailView):
     model = Patient
@@ -103,9 +104,10 @@ class PatientView(generic.DetailView):
     def put(self, request, **kwargs):
         patient = get_object_or_404(Patient, pk=kwargs['pk'])
         data = QueryDict(request.body)
-        form = SendEmailForm(data, instance=patient)
+        form = PatientForm(data, instance=patient)
         if form.is_valid():
             form.save()
+            patientJSON = serializers.serialize("json", [patient])
+            return HttpResponse(patientJSON, content_type='application/json')
 
-        patientJSON = serializers.serialize("json", [patient])
-        return HttpResponse(patientJSON, content_type='application/json')
+        return HttpResponse(status=500)
