@@ -102,7 +102,7 @@ function buildPutRequest(patient, bool) {
   var csrftoken = getCookie('csrftoken');
   return $.ajax({
     url: 'api/patient/' + patient.dataset.patient + '/',
-    type: 'PUT',
+    type: 'PATCH',
     data: {'send_email': bool},
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);
@@ -124,7 +124,7 @@ function saveEmail(e) {
   var csrftoken = getCookie('csrftoken');
   $.ajax({
     url: '/api/doctor/' + $form.data('user-id') +'/',
-    type: 'put',
+    type: 'PATCH',
     data: $form.serialize(),
     beforeSend: function(xhr) {
       xhr.setRequestHeader("X-CSRFToken", csrftoken);

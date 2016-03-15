@@ -9,8 +9,8 @@ from django.db.models import Q
 
 from drchrono_project.settings import CLIENT_DATA
 from models import Doctor, Patient
-from utils import get_drchrono_user
 from forms import EmailForm, PatientForm
+from utils import get_drchrono_user
 
 def login_view(request):
     return render(request, 'sessions/login.html', context={
@@ -87,7 +87,7 @@ def patient_search_view(request):
 class DoctorView(generic.DetailView):
     model = Doctor
 
-    def put(self, request, **kwargs):
+    def patch(self, request, **kwargs):
         doctor = get_object_or_404(User, pk=kwargs['pk']).doctor
         data = QueryDict(request.body)
         form = EmailForm(data, instance=doctor)
@@ -101,7 +101,7 @@ class DoctorView(generic.DetailView):
 class PatientView(generic.DetailView):
     model = Patient
 
-    def put(self, request, **kwargs):
+    def patch(self, request, **kwargs):
         patient = get_object_or_404(Patient, pk=kwargs['pk'])
         data = QueryDict(request.body)
         form = PatientForm(data, instance=patient)
