@@ -34,6 +34,14 @@ def oauth_view(request):
     login(request, auth_user)
     return redirect('drchrono_birthdays:index_view')
 
+def guest_view(request):
+    if 'error' in request.GET:
+        return redirect('drchrono_birthdays:login_error')
+
+    auth_user = authenticate(username="guest", password="guest")
+    login(request, auth_user)
+    return redirect('drchrono_birthdays:index_view')
+
 def login_error_view(request):
     """
     If drchrono authentication fails

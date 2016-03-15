@@ -16,11 +16,15 @@
 
 <div id="patient-table" class="bold">
   <i class="fa fa-users"></i> PATIENTS
-  <a href="https://drchrono.com/o/authorize/?redirect_uri={{redirect_url}}&response_type=code&client_id={{client_id}}&scope=patients:read%20user:read">
-    <button id="update-list-button" type="button" name="button">
-      Update Patient List from drchrono
-    </button>
-  </a>
+
+  {% if doctor.user.username == guest %}
+    <a href="https://drchrono.com/o/authorize/?redirect_uri={{redirect_url}}&response_type=code&client_id={{client_id}}&scope=patients:read%20user:read">
+      <button id="update-list-button" type="button" name="button">
+        Update Patient List from drchrono
+      </button>
+    </a>
+  {% endif %}
+  
 </div>
 <input id="search-bar" type="text" name="search-query" value=""
   placeholder="Search patients by name or email"

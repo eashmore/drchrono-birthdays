@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^$', login_required(views.index_view), name='index_view'),
     url(r'^email/$', login_required(views.edit_email_view), name="custom_email"),
     url(r'^patient-search/$', login_required(views.patient_search_view), name="patient_search"),
+    url(r'^guest/$', views.guest_view, name='guest'),
+
 
     url(r'^api/doctor/(?P<pk>[0-9]+)/$',
         login_required(views.DoctorView.as_view()), name='doctor'

@@ -64,13 +64,13 @@ button:hover {
   max-width: 900px;
 }
 
-#login-button {
+.login-button {
   width: 220px;
   margin: auto;
   margin-top: 25px;
 }
 
-#login-button button {
+.login-button button {
   color: #f5f5f5;
   padding: 15px 10px;
   background-color: #4FA025;
@@ -78,7 +78,7 @@ button:hover {
   opacity: 0.8;
 }
 
-#login-button button:hover {
+.login-button button:hover {
   color: #fff;
   border: 1px solid darkgreen;
   opacity: 1.0;
