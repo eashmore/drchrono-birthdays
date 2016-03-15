@@ -64,13 +64,19 @@ button:hover {
   max-width: 900px;
 }
 
-.login-button {
-  width: 220px;
+#login-button {
+  width: 185px;
   margin: auto;
   margin-top: 25px;
 }
 
-.login-button button {
+#demo-button {
+  margin: auto;
+  margin-top: 10px;
+  width: 131px;
+}
+
+.login-button {
   color: #f5f5f5;
   padding: 15px 10px;
   background-color: #4FA025;
@@ -78,11 +84,20 @@ button:hover {
   opacity: 0.8;
 }
 
-.login-button button:hover {
+#demo-button .login-button {
+  background-color: #4FA025;
+  border: 1px solid #4FA025;
+}
+
+.login-button:hover {
   color: #fff;
-  border: 1px solid darkgreen;
+  border: 1px solid #006400;
   opacity: 1.0;
   box-shadow: 0px 0px 3px #000;
+}
+
+#demo-button .login-button:hover {
+  border: 1px solid darkgreen;
 }
 
 .about-app {

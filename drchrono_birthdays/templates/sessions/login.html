@@ -6,18 +6,18 @@
   <img id="drchrono-logo" src="{% static 'images/drchrono-lg.png' %}" alt="" />
 </div>
 
-<div id="login-button" class="login-button">
+<div id="login-button">
   <a href="https://drchrono.com/o/authorize/?redirect_uri={{redirect_url}}&response_type=code&client_id={{client_id}}&scope=patients:read%20user:read">
-    <button type="button" name="button">
+    <button class="login-button" type="button" name="button">
       <i class="fa fa-sign-in fa-lg"></i> Login with drchrono
     </button>
   </a>
 </div>
 
-<div id="demo-button" class="login-button">
+<div id="demo-button">
   <a href="{% url 'drchrono_birthdays:guest' %}">
-    <button type="button" name="button">
-      <i class="fa fa-sign-in fa-lg"></i> Demo mode
+    <button class="login-button" type="button" name="button">
+      <i class="fa fa-unlock fa-lg"></i> Demo mode
     </button>
   </a>
 </div>
