@@ -38,7 +38,7 @@ def guest_view(request):
     if 'error' in request.GET:
         return redirect('drchrono_birthdays:login_error')
 
-    auth_user = authenticate(username="guest", password="guest")
+    auth_user = authenticate(username="guest", password="guestpassword")
     login(request, auth_user)
     return redirect('drchrono_birthdays:index_view')
 
@@ -63,7 +63,8 @@ def index_view(request):
         'patients': patients,
         'username': request.user.username,
         'redirect_url': urlquote(CLIENT_DATA['redirect_url']),
-        'client_id': CLIENT_DATA['client_id']
+        'client_id': CLIENT_DATA['client_id'],
+        'is_guest': request.user.username == 'guest'
     }
 
     return render(request, 'index.html', context)
