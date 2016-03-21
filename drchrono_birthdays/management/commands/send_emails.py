@@ -6,6 +6,7 @@ import datetime
 
 from drchrono_project.settings import EMAIL_HOST_USER
 
+
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         def get_bday_emails(doctor):
@@ -21,7 +22,8 @@ class Command(BaseCommand):
         def is_birthday(patient):
             currentDate = datetime.date.today()
             birthday = patient.birthday
-            if birthday.month == currentDate.month and birthday.day == currentDate.day:
+            if (birthday.month == currentDate.month and
+                    birthday.day == currentDate.day):
                 return True
 
             return False
@@ -41,9 +43,7 @@ class Command(BaseCommand):
                 '[last name]', patient.last_name
             )
 
-            message = (subject, body, EMAIL_HOST_USER,
-                       [patient.email]
-                      )
+            message = (subject, body, EMAIL_HOST_USER, [patient.email])
             return message
 
         doctors = Doctor.objects.all()

@@ -12,11 +12,13 @@ from models import Doctor, Patient
 from forms import EmailForm, PatientForm
 from utils import get_drchrono_user
 
+
 def login_view(request):
     return render(request, 'sessions/login.html', context={
         'redirect_url': urlquote(CLIENT_DATA['redirect_url']),
         'client_id': CLIENT_DATA['client_id']
     })
+
 
 def oauth_view(request):
     """
@@ -34,6 +36,7 @@ def oauth_view(request):
     login(request, auth_user)
     return redirect('drchrono_birthdays:index_view')
 
+
 def guest_view(request):
     if 'error' in request.GET:
         return redirect('drchrono_birthdays:login_error')
@@ -42,15 +45,18 @@ def guest_view(request):
     login(request, auth_user)
     return redirect('drchrono_birthdays:index_view')
 
+
 def login_error_view(request):
     """
     If drchrono authentication fails
     """
     return render(request, 'sessions/error.html')
 
+
 def logout_view(request):
     logout(request)
     return redirect('drchrono_birthdays:index_view')
+
 
 def index_view(request):
     """
@@ -69,6 +75,7 @@ def index_view(request):
 
     return render(request, 'index.html', context)
 
+
 def edit_email_view(request):
     user = request.user
     doctor = user.doctor
@@ -80,6 +87,7 @@ def edit_email_view(request):
 
     return render(request, 'doctors/email.html', context)
 
+
 def patient_search_view(request):
     patients = request.user.doctor.patient_set.all()
     if request.method == 'POST' and request.POST['queryString']:
@@ -90,7 +98,10 @@ def patient_search_view(request):
             Q(email__contains=query_string)
         )
 
-    return render(request, 'patients/patient_list.html', {'patients': patients})
+    return render(request, 'patients/patient_list.html', {
+        'patients': patients
+    })
+
 
 # My API
 class DoctorView(generic.DetailView):
@@ -106,6 +117,7 @@ class DoctorView(generic.DetailView):
             return HttpResponse(doctorJSON, content_type='application/json')
 
         return HttpResponse(status=500)
+
 
 class PatientView(generic.DetailView):
     model = Patient

@@ -1,8 +1,11 @@
 from __future__ import unicode_literals
-from django.db import models
-from django.contrib.auth.models import User
+
 import string
 import random
+
+from django.db import models
+from django.contrib.auth.models import User
+
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
@@ -13,7 +16,10 @@ class Doctor(models.Model):
         default="Happy birthday from Dr. {0}"
     )
     email_body = models.TextField(
-        default="Dear [first name] [last name],\n\nHappy birthday!\n\nSincerely,\nDr. {0}"
+        default=(
+            "Dear [first name] [last name],\n\nHappy "
+            "birthday!\n\nSincerely,\nDr. {0}"
+        )
     )
 
     def __str__(self):
@@ -26,6 +32,7 @@ class Doctor(models.Model):
         user.set_password(password)
         user.save()
         return password
+
 
 class Patient(models.Model):
     doctor = models.ForeignKey(Doctor)

@@ -1,8 +1,10 @@
-from django.contrib.auth.models import User
 import requests
+
+from django.contrib.auth.models import User
 
 from drchrono_project.settings import CLIENT_DATA
 from models import Doctor, Patient
+
 
 # Access drchrono API
 def get_drchrono_user(request_params):
@@ -14,6 +16,7 @@ def get_drchrono_user(request_params):
     user = save_user(current_doctor_data)
     update_patients(user, access_token)
     return user
+
 
 def exchange_token(params):
     """
@@ -31,6 +34,7 @@ def exchange_token(params):
     data = response.json()
     return data['access_token']
 
+
 def get_doctor_data(access_token):
     """
     Get doctor data for current drchrono user
@@ -43,6 +47,7 @@ def get_doctor_data(access_token):
     data['username'] = user_data['username']
     return data
 
+
 def get_user_data(header):
     """
     Get user data for current drchrono user
@@ -50,6 +55,7 @@ def get_user_data(header):
     endpoint = 'users/current'
     current_doctor_data = get_drchrono_data(endpoint, header)
     return current_doctor_data
+
 
 def save_user(doctor_data):
     user = User.objects.create_user(
@@ -68,6 +74,7 @@ def save_user(doctor_data):
 
     return user
 
+
 def update_patients(user, access_token):
     """
     Find the current user's patients and insert/update patient's row in db
@@ -84,6 +91,7 @@ def update_patients(user, access_token):
 
         patients_url = data['next']
 
+
 def is_valid_patient(patient_data):
     """
     Checks is a patient is valid.
@@ -93,6 +101,7 @@ def is_valid_patient(patient_data):
         return True
 
     return False
+
 
 def save_patient(patient_data, user):
     patient = Patient(
@@ -111,6 +120,7 @@ def save_patient(patient_data, user):
         patient.save()
 
     return patient
+
 
 def get_drchrono_data(endpoint, header):
     """
