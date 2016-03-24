@@ -165,7 +165,7 @@ function listenForPatientSearch() {
 function getResults(e) {
   var csrftoken = getCookie('csrftoken');
   $.ajax({
-    type: 'POST',
+    type: 'GET',
     url: '/patient-search/',
     data: {
       'queryString': e.currentTarget.value

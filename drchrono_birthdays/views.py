@@ -90,8 +90,8 @@ def edit_email_view(request):
 
 def patient_search_view(request):
     patients = request.user.doctor.patient_set.all()
-    if request.method == 'POST' and request.POST['queryString']:
-        query_string = request.POST['queryString']
+    if request.method == 'GET' and request.GET['queryString']:
+        query_string = request.GET['queryString']
         patients = patients.filter(
             Q(last_name__contains=query_string) |
             Q(first_name__contains=query_string) |
