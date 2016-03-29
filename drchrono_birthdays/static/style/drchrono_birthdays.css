@@ -302,6 +302,11 @@ button:hover {
   border: 1px solid #faebcc;
 }
 
+#save-success {
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+}
+
 #save-fail {
   background-color: #A21515;
   border: 1px solid #790F0F;
@@ -316,7 +321,13 @@ button:hover {
   top: 75px;
   padding: 15px 0px;
   font-size: 30px;
-  opacity: 0.9;
+  opacity: 0.0;
+  transition: opacity 0.5s;
+}
+
+.save-result-fade {
+  opacity: 1;
+  transition: opacity 0.5s;
 }
 
 /*navbar*/

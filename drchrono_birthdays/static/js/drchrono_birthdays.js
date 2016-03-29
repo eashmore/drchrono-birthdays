@@ -1,16 +1,13 @@
 // Add listeners for patient updates
 function listenForPatientUpdate() {
   $('#update-list-button').click(displayLoadingScreen);
-
   $('#patient-list').on('change', '.send-checkbox', markUserForUpdate);
-
   $('#save-changes-button').click(getMarkedPatients);
 
   //Toggle email for all patients
   $('#email-all-button').click(function(){
     saveChanges($('.patient'), true);
   });
-
   $('#email-none-button').click(function(){
     saveChanges($('.patient'), false);
   });
@@ -152,10 +149,10 @@ function errorSave() {
 }
 
 function showSaveResult(saveStatus) {
-  saveStatus.removeClass('display-none');
+  saveStatus.addClass('save-result-fade');
   setTimeout(function() {
-    saveStatus.addClass('display-none');
-  }, 1500);
+    saveStatus.removeClass('save-result-fade');
+  }, 3000);
 }
 
 function listenForPatientSearch() {
